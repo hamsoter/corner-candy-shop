@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { Typography, Form, Input, Button } from "antd";
+import FileUpload from "../../utils/FileUpload";
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -73,7 +74,7 @@ function UploadProductPage() {
       </div>
 
       <Form>
-        {/* DropZone */}
+        <FileUpload></FileUpload>
 
         <article style={{ margin: "1rem 0" }}>
           <label>꿈의 이름은?</label>
