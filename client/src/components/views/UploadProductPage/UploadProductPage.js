@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import { Typography, Form, Input, Button } from "antd";
 import FileUpload from "../../utils/FileUpload";
+import Axios from "axios";
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -38,14 +39,14 @@ const moods = [
   { key: "m9", value: "말로 하기 힘들지만 소중한" },
 ];
 
-function UploadProductPage() {
+function UploadProductPage({ user, history }) {
   // 서버로 보낼 form data
   const [title, setTitle] = useState("");
-  const [description, setDiscription] = useState("");
+  const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
-  const [genre, setGenre] = useState("");
-  const [mood, setMood] = useState("");
-  const [size, setSize] = useState("");
+  const [genre, setGenre] = useState(genres[0].value);
+  const [mood, setMood] = useState(moods[0].value);
+  const [size, setSize] = useState(sizes[0].value);
   const [thumbnail, setThumbnail] = useState("");
 
   const titleChangeHandler = (e) => {
@@ -53,10 +54,13 @@ function UploadProductPage() {
   };
 
   const descriptionChangeHandler = (e) => {
-    setDiscription(e.target.value);
+    setDescription(e.target.value);
   };
 
   const priceChangeHandler = (e) => {
+    e.target.value = Math.abs(
+      e.target.value.replace(/[^0-9]/g, "").replace(/(\..*)\./g, "$1")
+    );
     setPrice(e.target.value);
   };
 
@@ -66,6 +70,31 @@ function UploadProductPage() {
 
   const upadateImage = (image) => {
     setThumbnail(image);
+  };
+
+  const submitHandler = () => {
+    if (!title || !description || price < 0 || !genre || !mood || !size) {
+      return alert("모든 값을 넣어주세요!");
+    }
+
+    const body = {
+      writer: user.userData._id,
+      title: title,
+      description: description,
+      price: price,
+      genre: genre,
+      mood: mood,
+      size: size,
+    };
+
+    Axios.post("/api/product", body).then((res) => {
+      if (res.data.success) {
+        alert("성공!");
+        history.push("/");
+      } else {
+        alert("뭔가 문제가 생겼어요! 다시 시도해봅시다.");
+      }
+    });
   };
 
   return (
@@ -78,7 +107,7 @@ function UploadProductPage() {
         </span>
       </div>
 
-      <Form>
+      <Form onSubmitCapture={submitHandler}>
         <FileUpload refreshFunction={upadateImage}></FileUpload>
 
         <article style={{ margin: "1rem 0" }}>
@@ -131,11 +160,16 @@ function UploadProductPage() {
 
         <article style={{ margin: "1rem 0" }}>
           <label>꿈의 가치($)</label>
-          <Input type="number" onChange={priceChangeHandler} value={price} />
+          <Input
+            type="number"
+            onChange={priceChangeHandler}
+            min="0"
+            value={price}
+          />
         </article>
 
         <article style={{ margin: "1rem 0" }}>
-          <Button>확인</Button>
+          <Button htmlType="submit">확인</Button>
         </article>
       </Form>
     </div>

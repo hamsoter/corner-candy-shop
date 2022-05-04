@@ -2,10 +2,10 @@ import { Icon } from "antd";
 import Axios from "axios";
 import React, { useCallback, useState } from "react";
 import styles from "./FileUpload.module.css";
+import { useFormik } from "formik";
 
 import { useDropzone } from "react-dropzone";
 
-console.log(styles);
 function FileUpload({ refreshFunction }) {
   const [imageSrc, setImageSrc] = useState("");
   const [isHovering, setIsHovering] = useState(false);
