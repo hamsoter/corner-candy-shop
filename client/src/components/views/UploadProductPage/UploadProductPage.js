@@ -39,13 +39,14 @@ const moods = [
 ];
 
 function UploadProductPage() {
+  // 서버로 보낼 form data
   const [title, setTitle] = useState("");
   const [description, setDiscription] = useState("");
   const [price, setPrice] = useState(0);
   const [genre, setGenre] = useState("");
   const [mood, setMood] = useState("");
   const [size, setSize] = useState("");
-  const [images, setImages] = useState([]);
+  const [thumbnail, setThumbnail] = useState("");
 
   const titleChangeHandler = (e) => {
     setTitle(e.target.value);
@@ -63,6 +64,10 @@ function UploadProductPage() {
     point(e.target.value);
   };
 
+  const upadateImage = (image) => {
+    setThumbnail(image);
+  };
+
   return (
     <div style={{ maxWidth: "700px", margin: "2rem auto" }}>
       <div style={{ textAlign: "center", marginBottom: "2rem" }}>
@@ -74,7 +79,7 @@ function UploadProductPage() {
       </div>
 
       <Form>
-        <FileUpload></FileUpload>
+        <FileUpload refreshFunction={upadateImage}></FileUpload>
 
         <article style={{ margin: "1rem 0" }}>
           <label>꿈의 이름은?</label>

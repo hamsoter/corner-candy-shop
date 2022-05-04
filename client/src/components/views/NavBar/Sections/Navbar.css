@@ -1,22 +1,31 @@
-@import '~antd/dist/antd.css';
+@import "~antd/dist/antd.css";
+@font-face {
+  font-family: "Hahmlet-SemiBold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/Hahmlet-SemiBold.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
 
 .menu {
   padding: 0 20px;
   border-bottom: solid 1px #e8e8e8;
-  overflow: auto;
+  /* overflow: auto; */
   box-shadow: 0 0 30px #f3f1f1;
   background-color: white;
 }
 
 .menu__logo {
-  width: 150px;
+  width: 200px;
   float: left;
 }
 
 .menu__logo a {
+  font-family: "Hahmlet-SemiBold";
   display: inline-block;
   font-size: 20px;
-  padding: 19px 20px;
+  padding: 16px 20px;
+  color: #392b53;
 }
 
 .menu__container .ant-menu-item {
@@ -82,6 +91,6 @@
   }
 
   .menu__logo a {
-    padding: 10px 20px;
+    padding: 10px 20px 12px 20px;
   }
 }
