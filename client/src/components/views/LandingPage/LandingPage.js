@@ -7,18 +7,47 @@ import ProductCard from "./ProductCard";
 
 function LandingPage() {
   const [products, setProducts] = useState([]);
+  const [skip, setSkip] = useState(0);
+  // 한번에 불러올 데이터양
+  const [limit, setLimit] = useState(4);
+  const [postSize, setPostSize] = useState(0);
+
+  const loadMoreHandler = () => {
+    let newSkip = skip + limit;
+
+    const body = {
+      skip: newSkip,
+      limit: limit,
+      loadMore: true,
+    };
+    fetchData(body);
+
+    setSkip((prev) => prev + limit);
+  };
+
+  const fetchData = async (body) => {
+    try {
+      const result = await Axios.post("/api/product/products", body);
+      console.log(result.data.products);
+
+      if (body.loadMore) {
+        setProducts([...products, ...result.data.products]);
+      } else {
+        setProducts(result.data.products);
+      }
+      setPostSize(result.data.postSize);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await Axios.post("/api/product/products");
-        console.log(result.data.products);
-        setProducts(result.data.products);
-      } catch (err) {
-        console.log(err);
-      }
+    const body = {
+      skip: skip,
+      limit: limit,
     };
-    fetchData();
+
+    fetchData(body);
   }, []);
 
   const productCards = products.map((item, index) => {
@@ -43,10 +72,12 @@ function LandingPage() {
       {/* items */}
 
       <Row gutter={[16, 16]}>{productCards}</Row>
-
-      <div className={styles.center}>
-        <button>더보기</button>
-      </div>
+      {console.log(postSize)}
+      {postSize >= limit && (
+        <div className={styles.center}>
+          <button onClick={loadMoreHandler}>더보기</button>
+        </div>
+      )}
     </main>
   );
 }
