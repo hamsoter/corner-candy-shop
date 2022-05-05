@@ -85,6 +85,7 @@ function UploadProductPage({ user, history }) {
       genre: genre,
       mood: mood,
       size: size,
+      thumbnail: thumbnail,
     };
 
     Axios.post("/api/product", body).then((res) => {
