@@ -4,6 +4,9 @@ import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import styles from "./LandingPage.module.css";
 import ProductCard from "./ProductCard";
+import CheckBox from "./Sections/CheckBox";
+
+import { genres } from "./Sections/Datas";
 
 function LandingPage() {
   const [products, setProducts] = useState([]);
@@ -28,7 +31,6 @@ function LandingPage() {
   const fetchData = async (body) => {
     try {
       const result = await Axios.post("/api/product/products", body);
-      console.log(result.data.products);
 
       if (body.loadMore) {
         setProducts([...products, ...result.data.products]);
@@ -40,6 +42,8 @@ function LandingPage() {
       console.log(err);
     }
   };
+
+  const handleFilters = () => {};
 
   useEffect(() => {
     const body = {
@@ -67,12 +71,18 @@ function LandingPage() {
 
       {/* filter */}
 
+      <CheckBox
+        list={genres}
+        handleFilters={(filter) => {
+          handleFilters(filters, "genres");
+        }}
+      ></CheckBox>
+
       {/* search */}
 
       {/* items */}
 
       <Row gutter={[16, 16]}>{productCards}</Row>
-      {console.log(postSize)}
       {postSize >= limit && (
         <div className={styles.center}>
           <button onClick={loadMoreHandler}>더보기</button>
