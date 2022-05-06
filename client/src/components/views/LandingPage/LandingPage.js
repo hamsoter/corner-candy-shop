@@ -15,6 +15,12 @@ function LandingPage() {
   const [limit, setLimit] = useState(4);
   const [postSize, setPostSize] = useState(0);
 
+  // 필터 정보를 저장
+  const [filters, setFilters] = useState({
+    genre: [],
+    price: [],
+  });
+
   const loadMoreHandler = () => {
     let newSkip = skip + limit;
 
@@ -43,7 +49,31 @@ function LandingPage() {
     }
   };
 
-  const handleFilters = () => {};
+  // 필터된 데이터를 화면에 그리기
+  const showFilteredResults = (filters) => {
+    let body = {
+      skip: 0, // skip 초기화
+      limit: limit,
+      filters: filters,
+    };
+    console.log(body);
+    fetchData(body);
+    setSkip(0);
+  };
+
+  const handleFilters = (filterId, category) => {
+    console.log(category, filterId);
+    console.log(filters);
+
+    // filters형식을 한 새로운 객체
+    const newFilters = { ...filters };
+
+    // filters 형식을 한 새 객체에 넘겨받은
+    newFilters[category] = filterId;
+    console.log("new", newFilters);
+
+    showFilteredResults(newFilters);
+  };
 
   useEffect(() => {
     const body = {
@@ -73,8 +103,8 @@ function LandingPage() {
 
       <CheckBox
         list={genres}
-        handleFilters={(filter) => {
-          handleFilters(filters, "genres");
+        handleFilters={(filters) => {
+          handleFilters(filters, "genre");
         }}
       ></CheckBox>
 

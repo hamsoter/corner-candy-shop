@@ -77,12 +77,15 @@ function UploadProductPage({ user, history }) {
       return alert("모든 값을 넣어주세요!");
     }
 
+    const genreIndex = genres.findIndex((item) => item.value === genre) + 1;
+    console.log(genreIndex);
+
     const body = {
       writer: user.userData._id,
       title: title,
       description: description,
       price: price,
-      genre: genre,
+      genre: genreIndex,
       mood: mood,
       size: size,
       thumbnail: thumbnail,

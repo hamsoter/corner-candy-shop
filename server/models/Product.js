@@ -27,6 +27,10 @@ const productSchema = mongoose.Schema(
       type: Number,
       maxlength: 999,
     },
+    genre: {
+      type: Number,
+      default: 1,
+    },
     views: {
       type: Number,
       default: 0,

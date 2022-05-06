@@ -40,6 +40,8 @@ router.post("/", (req, res) => {
 
   const product = new Product(req.body);
 
+  console.log(product);
+
   product.save((err) => {
     if (err) return res.status(400).json({ success: false, err });
     return res.status(200).json({ success: true });
@@ -52,7 +54,18 @@ router.post("/products", (req, res) => {
   let limit = req.body.limit ? parseInt(req.body.limit) : 20;
   const skip = req.body.skip ? parseInt(req.body.skip) : 0;
 
-  Product.find()
+  let findArgs = {};
+
+  for (let key in req.body.filters) {
+    // key 장르의 cheked 상태가 1개 이상일 경우
+    if (req.body.filters[key].length > 0) {
+      findArgs[key] = req.body.filters[key];
+    }
+  }
+
+  console.log(findArgs);
+
+  Product.find(findArgs)
     // writer에 넘겨진 uid값으로 User를 찾고 writer에 User 객체를 담음
     .populate("writer")
     // 기존에 불러온 데이터들은 skip
@@ -62,7 +75,6 @@ router.post("/products", (req, res) => {
     .exec((err, products) => {
       if (err) return res.status(400).json({ success: false, err });
 
-      console.log(products.length);
       return res
         .status(200)
         .json({ success: true, products, postSize: products.length });
