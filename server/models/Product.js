@@ -25,7 +25,7 @@ const productSchema = mongoose.Schema(
     },
     sold: {
       type: Number,
-      maxlength: 999,
+      maxlength: 300,
     },
     genre: {
       type: Number,
@@ -34,6 +34,14 @@ const productSchema = mongoose.Schema(
     views: {
       type: Number,
       default: 0,
+    },
+    size: {
+      type: Number,
+      default: 1,
+    },
+    mood: {
+      type: Number,
+      default: 1,
     },
   },
   { timestamps: true }

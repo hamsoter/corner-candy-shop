@@ -59,7 +59,15 @@ router.post("/products", (req, res) => {
   for (let key in req.body.filters) {
     // key 장르의 cheked 상태가 1개 이상일 경우
     if (req.body.filters[key].length > 0) {
-      findArgs[key] = req.body.filters[key];
+      if (key === "price") {
+        findArgs[key] = {
+          // price 최솟값, 최댓값
+          $gte: req.body.filters[key][0],
+          $lte: req.body.filters[key][1],
+        };
+      } else {
+        findArgs[key] = req.body.filters[key];
+      }
     }
   }
 

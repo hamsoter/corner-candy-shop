@@ -1,5 +1,6 @@
-import { Button, Card, Row } from "antd";
+import { Button, Card, Col, Collapse, Row } from "antd";
 import Meta from "antd/lib/card/Meta";
+import Search from "antd/lib/input/Search";
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import styles from "./LandingPage.module.css";
@@ -7,12 +8,14 @@ import ProductCard from "./ProductCard";
 import CheckBox from "./Sections/CheckBox";
 
 import { genres } from "./Sections/Datas";
+import PriceSlider from "./Sections/PriceSlider";
+import SearchFeature from "./Sections/SearchFeature";
 
 function LandingPage() {
   const [products, setProducts] = useState([]);
   const [skip, setSkip] = useState(0);
   // 한번에 불러올 데이터양
-  const [limit, setLimit] = useState(4);
+  const [limit, setLimit] = useState(6);
   const [postSize, setPostSize] = useState(0);
 
   // 필터 정보를 저장
@@ -61,18 +64,18 @@ function LandingPage() {
     setSkip(0);
   };
 
-  const handleFilters = (filterId, category) => {
-    console.log(category, filterId);
-    console.log(filters);
+  const handleFilters = (filterItem, category) => {
+    console.log(category, filterItem);
 
     // filters형식을 한 새로운 객체
     const newFilters = { ...filters };
 
     // filters 형식을 한 새 객체에 넘겨받은
-    newFilters[category] = filterId;
+    newFilters[category] = filterItem;
     console.log("new", newFilters);
 
     showFilteredResults(newFilters);
+    setFilters(newFilters);
   };
 
   useEffect(() => {
@@ -101,15 +104,32 @@ function LandingPage() {
 
       {/* filter */}
 
-      <CheckBox
-        list={genres}
-        handleFilters={(filters) => {
-          handleFilters(filters, "genre");
-        }}
-      ></CheckBox>
-
+      <Row gtter={[16, 16]}>
+        <Col lg={12} xs={24}>
+          <CheckBox
+            list={genres}
+            handleFilters={(filters) => {
+              handleFilters(filters, "genre");
+            }}
+          ></CheckBox>
+        </Col>
+        <Col lg={12} xs={24}>
+          <PriceSlider
+            handleFilters={(filters) => {
+              handleFilters(filters, "price");
+            }}
+          ></PriceSlider>
+        </Col>
+        <Col
+          lg={24}
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        ></Col>
+      </Row>
       {/* search */}
-
+      <SearchFeature></SearchFeature>
       {/* items */}
 
       <Row gutter={[16, 16]}>{productCards}</Row>

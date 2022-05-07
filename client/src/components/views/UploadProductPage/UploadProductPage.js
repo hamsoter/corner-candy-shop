@@ -72,13 +72,18 @@ function UploadProductPage({ user, history }) {
     setThumbnail(image);
   };
 
+  const selectedIndex = (dataObj, selectedValue) => {
+    return dataObj.findIndex((item) => item.value === selectedValue) + 1;
+  };
+
   const submitHandler = () => {
     if (!title || !description || price < 0 || !genre || !mood || !size) {
       return alert("모든 값을 넣어주세요!");
     }
 
-    const genreIndex = genres.findIndex((item) => item.value === genre) + 1;
-    console.log(genreIndex);
+    const genreIndex = selectedIndex(genres, genre);
+    const moodIndex = selectedIndex(moods, mood);
+    const sizeIndex = selectedIndex(sizes, size);
 
     const body = {
       writer: user.userData._id,
@@ -86,8 +91,8 @@ function UploadProductPage({ user, history }) {
       description: description,
       price: price,
       genre: genreIndex,
-      mood: mood,
-      size: size,
+      mood: moodIndex,
+      size: sizeIndex,
       thumbnail: thumbnail,
     };
 

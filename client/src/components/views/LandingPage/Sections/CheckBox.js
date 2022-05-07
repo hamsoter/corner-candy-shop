@@ -1,4 +1,5 @@
-import { Checkbox, Collapse } from "antd";
+import { Checkbox, Col, Collapse, Row } from "antd";
+import CheckableTag from "antd/lib/tag/CheckableTag";
 import React, { useState } from "react";
 
 const { Panel } = Collapse;
@@ -33,34 +34,48 @@ function CheckBox({ list, handleFilters }) {
       list &&
       list.map((item, index) => {
         return (
-          <>
-            <Checkbox
-              key={index}
-              onChange={(e) => {
-                handleToggle(item.key);
-              }}
-              checked={
-                checked.indexOf(Number(item.key.split("g")[1])) === -1
-                  ? false
-                  : true
-              }
-            >
-              <span>{item.value}</span>
-            </Checkbox>
-          </>
+          <CheckableTag
+            style={{ border: `1px solid lightgrey` }}
+            key={index}
+            onChange={(e) => {
+              handleToggle(item.key);
+            }}
+            checked={
+              checked.indexOf(Number(item.key.split("g")[1])) === -1
+                ? false
+                : true
+            }
+          >
+            <span>{item.value}</span>
+          </CheckableTag>
         );
       })
     );
   };
 
   return (
-    <main>
-      <Collapse defaultActiveKey={["1"]}>
-        <Panel header="장르" key="1">
-          {renderCheckboxLists()}
-        </Panel>
-      </Collapse>
-    </main>
+    <Collapse defaultActiveKey={["1"]}>
+      <Panel header="장르" key="1">
+        <Row
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Col
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+            }}
+            lg={{ span: 20 }}
+            xs={{ span: 22 }}
+          >
+            {renderCheckboxLists()}
+          </Col>
+        </Row>
+      </Panel>
+    </Collapse>
   );
 }
 
