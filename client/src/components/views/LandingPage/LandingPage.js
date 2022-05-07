@@ -24,6 +24,8 @@ function LandingPage() {
     price: [],
   });
 
+  const [searchTerm, setSearchTerm] = useState("");
+
   const loadMoreHandler = () => {
     let newSkip = skip + limit;
 
@@ -78,6 +80,20 @@ function LandingPage() {
     setFilters(newFilters);
   };
 
+  const updateSearchTerm = (searchVal) => {
+    const body = {
+      skip: 0,
+      limit: limit,
+      filters: filters,
+      searchTerm: searchVal,
+    };
+
+    setSkip(0);
+    setSearchTerm(searchVal);
+
+    fetchData(body);
+  };
+
   useEffect(() => {
     const body = {
       skip: skip,
@@ -129,7 +145,10 @@ function LandingPage() {
         ></Col>
       </Row>
       {/* search */}
-      <SearchFeature></SearchFeature>
+      <SearchFeature
+        searchTerm={searchTerm}
+        refreshFunction={updateSearchTerm}
+      ></SearchFeature>
       {/* items */}
 
       <Row gutter={[16, 16]}>{productCards}</Row>
