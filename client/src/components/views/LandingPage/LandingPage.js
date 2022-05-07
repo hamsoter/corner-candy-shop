@@ -104,13 +104,16 @@ function LandingPage() {
   }, []);
 
   const productCards = products.map((item, index) => {
+    console.log(item);
     return (
-      <ProductCard
-        key={index}
-        title={item.title}
-        price={item.price}
-        thumbSrc={item.thumbnail}
-      ></ProductCard>
+      <a href={`/product/${item._id}`}>
+        <ProductCard
+          key={index}
+          title={item.title}
+          price={item.price}
+          thumbSrc={item.thumbnail}
+        ></ProductCard>
+      </a>
     );
   });
 

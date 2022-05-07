@@ -108,4 +108,21 @@ router.post("/products", (req, res) => {
   }
 });
 
+router.get("/product_by_id", (req, res) => {
+  // productId를 이용하여 db에서 productid와 같은 상품의 정보를 가져옴
+
+  console.log("야");
+  const type = req.query.type;
+  const productId = req.query.id;
+
+  console.log(productId);
+
+  Product.find({ _id: productId })
+    .populate("writer")
+    .exec((err, product) => {
+      if (err) return res.status(400).send(err);
+      return res.status(200).send({ succress: true, product });
+    });
+});
+
 module.exports = router;
