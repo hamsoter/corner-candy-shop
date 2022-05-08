@@ -1,5 +1,5 @@
 import Search from "antd/lib/input/Search";
-import React, { useState } from "react";
+import React from "react";
 
 function SearchFeature({ refreshFunction, searchTerm }) {
   // const [searchTerm, setSearchTerm] = useState("");

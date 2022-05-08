@@ -3,13 +3,16 @@ import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import ProductImage from "./Sections/ProductImage";
 import ProductInfo from "./Sections/ProductInfo";
+import styles from "./Sections/Product.module.css";
 
 function DetailProductPage({ match }) {
   const productId = match.params.productId;
 
-  const [product, setProduct] = useState({});
-
-  console.log(productId);
+  const [product, setProduct] = useState({
+    writer: { name: "" },
+    genre: 0,
+    size: 0,
+  });
 
   const fetchData = async () => {
     try {
@@ -28,22 +31,22 @@ function DetailProductPage({ match }) {
   }, []);
 
   return (
-    <div style={{ width: "100%", padding: "3rem 4rem" }}>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+    <main className={styles.main}>
+      <div>
         <h1>{product.title}</h1>
       </div>
 
-      <Row gutter={[16, 16]}>
-        <Col lg={12} sm={24}>
+      <Row gutter={[16, 16]} style={{ padding: 0, margin: 0 }}>
+        <Col lg={12} sm={24} style={{ padding: 0, margin: 0 }}>
           {/* productimage */}
           <ProductImage imgSrc={product.thumbnail} />
         </Col>
-        <Col lg={12} sm={24}>
+        <Col lg={12} sm={24} style={{ padding: 0, margin: 0 }}>
           {/* productinfo*/}
           <ProductInfo product={product} />
         </Col>
       </Row>
-    </div>
+    </main>
   );
 }
 

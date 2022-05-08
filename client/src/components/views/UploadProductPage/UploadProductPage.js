@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Typography, Form, Input, Button } from "antd";
 import FileUpload from "../../utils/FileUpload";
 import Axios from "axios";
+import SizeSlider from "../../utils/SizeSlider";
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -65,6 +66,7 @@ function UploadProductPage({ user, history }) {
   };
 
   const selectHandler = (e, point) => {
+    console.log(e.target.value);
     point(e.target.value);
   };
 
@@ -136,6 +138,7 @@ function UploadProductPage({ user, history }) {
               </option>
             ))}
           </select>
+          <label>입니다</label>
         </article>
 
         <article style={{ margin: "1rem 0" }}>
@@ -151,20 +154,25 @@ function UploadProductPage({ user, history }) {
         </article>
 
         <article style={{ margin: "1rem 0" }}>
-          <label>감정의 크기는</label>
-          <select onChange={(e) => selectHandler(e, setSize)} value={size.key}>
+          <label>감정의 크기는?</label>
+
+          <SizeSlider setSize={setSize}></SizeSlider>
+          {/* <select onChange={(e) => selectHandler(e, setSize)} value={size.key}>
             {sizes.map((item) => (
               <option key={item.key} value={item.key}>
                 {item.value}
               </option>
             ))}
-          </select>
-          <span>정도예요</span>
+          </select> */}
         </article>
 
         <article style={{ margin: "1rem 0" }}>
           <label>자세한 이야기</label>
-          <TextArea onChange={descriptionChangeHandler} value={description} />
+          <TextArea
+            placeholder="어떤 꿈인지 간단히 들려주세요!"
+            onChange={descriptionChangeHandler}
+            value={description}
+          />
         </article>
 
         <article style={{ margin: "1rem 0" }}>
@@ -176,7 +184,6 @@ function UploadProductPage({ user, history }) {
             value={price}
           />
         </article>
-
         <article style={{ margin: "1rem 0" }}>
           <Button htmlType="submit">확인</Button>
         </article>

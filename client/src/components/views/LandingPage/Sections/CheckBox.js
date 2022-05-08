@@ -33,6 +33,9 @@ function CheckBox({ list, handleFilters }) {
     return (
       list &&
       list.map((item, index) => {
+        if (index === 0) {
+          return;
+        }
         return (
           <CheckableTag
             style={{ border: `1px solid lightgrey` }}

@@ -1,6 +1,4 @@
-import { Button, Card, Col, Collapse, Row } from "antd";
-import Meta from "antd/lib/card/Meta";
-import Search from "antd/lib/input/Search";
+import { Col, Row } from "antd";
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import styles from "./LandingPage.module.css";
@@ -15,7 +13,7 @@ function LandingPage() {
   const [products, setProducts] = useState([]);
   const [skip, setSkip] = useState(0);
   // 한번에 불러올 데이터양
-  const [limit, setLimit] = useState(6);
+  const [limit, setLimit] = useState(12);
   const [postSize, setPostSize] = useState(0);
 
   // 필터 정보를 저장
@@ -89,6 +87,7 @@ function LandingPage() {
     };
 
     setSkip(0);
+
     setSearchTerm(searchVal);
 
     fetchData(body);
@@ -104,11 +103,9 @@ function LandingPage() {
   }, []);
 
   const productCards = products.map((item, index) => {
-    console.log(item);
     return (
-      <a href={`/product/${item._id}`}>
+      <a href={`/product/${item._id}`} key={index}>
         <ProductCard
-          key={index}
           title={item.title}
           price={item.price}
           thumbSrc={item.thumbnail}
@@ -123,7 +120,7 @@ function LandingPage() {
 
       {/* filter */}
 
-      <Row gtter={[16, 16]}>
+      <Row gtter={[16, 16]} style={{ margin: 0 }}>
         <Col lg={12} xs={24}>
           <CheckBox
             list={genres}
@@ -151,10 +148,13 @@ function LandingPage() {
       <SearchFeature
         searchTerm={searchTerm}
         refreshFunction={updateSearchTerm}
-      ></SearchFeature>
+      />
+
       {/* items */}
 
-      <Row gutter={[16, 16]}>{productCards}</Row>
+      <Row gutter={[16, 16]} style={{ margin: 0 }}>
+        {productCards}
+      </Row>
       {postSize >= limit && (
         <div className={styles.center}>
           <button onClick={loadMoreHandler}>더보기</button>

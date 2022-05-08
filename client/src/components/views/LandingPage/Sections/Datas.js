@@ -1,4 +1,5 @@
 const genres = [
+  { key: "", value: "" },
   { key: "g1", value: "액션" },
   { key: "g2", value: "SF" },
   { key: "g3", value: "코미디" },
@@ -10,4 +11,13 @@ const genres = [
   { key: "g9", value: "말로 하기 힘들지만 특별함" },
 ];
 
-export { genres };
+const sizes = [
+  { key: "", value: "" },
+  { key: "s1", value: "티스푼보다 적은" },
+  { key: "s2", value: "적은" },
+  { key: "s3", value: "보통" },
+  { key: "s4", value: "커다란" },
+  { key: "s5", value: "어어어엄청 커다란!" },
+];
+
+export { genres, sizes };

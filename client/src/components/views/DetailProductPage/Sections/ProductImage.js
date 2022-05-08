@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
-import styles from "./ProductImage.module.css";
+import styles from "./Product.module.css";
 
 function ProductImage({ imgSrc }) {
   const [img, setImg] = useState("");
 
-  console.log(styles);
-
   useEffect(() => {
     if (imgSrc) {
-      console.log(imgSrc);
-
       setImg(
         <img
           className={styles.thumbnail}
@@ -17,15 +13,14 @@ function ProductImage({ imgSrc }) {
         ></img>
       );
     } else {
-      console.log("이미지가 없어요");
-      setImg(<div className={styles.noThumbnail}></div>);
+      setImg(
+        <div className={styles.noThumbnail}>
+          <span className={styles.noThumbText}>이미지가 없어요</span>
+        </div>
+      );
     }
   }, [imgSrc]);
-  return (
-    <section>
-      <div className={styles.thumbnailDiv}>{img}</div>
-    </section>
-  );
+  return <section className={styles.thumbnailBox}>{img}</section>;
 }
 
 export default ProductImage;

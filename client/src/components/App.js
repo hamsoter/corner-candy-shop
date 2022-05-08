@@ -20,7 +20,7 @@ function App() {
       <NavBar />
       <div
         style={{
-          paddingTop: "69px",
+          // paddingTop: "69px",
           minHeight: "calc(100vh - 80px)",
           display: "flex",
           flexDirection: "column",
