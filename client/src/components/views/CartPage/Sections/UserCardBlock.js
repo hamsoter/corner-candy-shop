@@ -5,9 +5,7 @@ import { CloseOutlined, SmileOutlined } from "@ant-design/icons";
 
 function UserCardBlock({ products }) {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [loading, setLoading] = useState(false);
 
-  console.log(products);
   const data = [];
   const columns = [
     {
@@ -31,13 +29,6 @@ function UserCardBlock({ products }) {
       width: "10%",
     },
   ];
-  const clean = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setSelectedRowKeys([]);
-      setLoading(false);
-    }, 500);
-  };
 
   const onSelectChange = (selectedRowKeys) => {
     console.log("selectedRowKeys changed: ", selectedRowKeys);
@@ -46,14 +37,12 @@ function UserCardBlock({ products }) {
 
   products &&
     products.forEach((item, index) => {
-      console.log(item);
       data.push({
         key: index,
         quantity: `${item.quantity}`,
         price: `$ ${item.price.toLocaleString()}`,
         remove: (
           <Button
-            danger
             style={{
               display: "flex",
               alignItems: "center",

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
 import { getCartItems } from "../../../_actions/user_actions";
@@ -6,6 +6,18 @@ import UserCardBlock from "./Sections/UserCardBlock";
 
 function CartPage({ user }) {
   const dispatch = useDispatch();
+
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const calculateTotalPrice = (cartDetail) => {
+    let total = 0;
+
+    cartDetail.map((item) => {
+      total += parseInt(item.price, 10) * item.quantity;
+    });
+
+    setTotalPrice(total);
+  };
 
   useEffect(() => {
     let cartItemIds = [];
@@ -18,7 +30,10 @@ function CartPage({ user }) {
 
         // 첫번째 인자로는 디테일 정보를 받아올 cartItemIds
         // 두 번째 인자로는 장바구니에 담긴 갯수를 받아올 카트 자체
-        dispatch(getCartItems(cartItemIds, user.userData.cart));
+        dispatch(getCartItems(cartItemIds, user.userData.cart)).then((res) => {
+          console.log(res.payload);
+          calculateTotalPrice(res.payload);
+        });
       }
     }
   }, [user.userData]);
@@ -28,6 +43,9 @@ function CartPage({ user }) {
       <h1>장바구니</h1>
       <div>
         <UserCardBlock products={user.cartDetail}></UserCardBlock>
+      </div>
+      <div>
+        <h2>합계: $ {totalPrice.toLocaleString()}</h2>
       </div>
     </main>
   );
