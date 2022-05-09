@@ -1,0 +1,32 @@
+.titleBox {
+  display: flex;
+  align-items: center;
+}
+.titleBox > span {
+  margin-left: 1rem;
+}
+
+.thumbnail {
+  width: 80px;
+  height: 55px;
+  object-fit: cover;
+}
+.noThumbnail {
+  width: 80px;
+  height: 55px;
+  border: 1px solid lightgrey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: lightgray;
+  flex-direction: column;
+}
+
+@media (max-width: 767px) {
+  .thumbnail {
+    display: none;
+  }
+  .noThumbnail {
+    display: none;
+  }
+}
