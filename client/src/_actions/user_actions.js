@@ -68,13 +68,21 @@ export function addToCart(id) {
   };
 }
 
-export function getCartItems(cartItems, userCart) {
+export function getCartItems(cartItemIds, userCart) {
+  // cartitem에 해당하는 정보들을 product collection에서 가져온 후
+
   const request = axios
-    .get(`api/product/products_by_id?id=${cartItems}&type=array`)
+    .get(`/api/product/product_by_id?id=${cartItemIds}&type=array`)
     .then((res) => {
-      // cartitem에 해당하는 정보들을 product collection에서 가져온 후
-      // product collection에서 가져온 후
-      // quantity 정보를 넣어줌
+      userCart.forEach((cartItemIds) => {
+        res.data.product.forEach((productDetail, index) => {
+          if (cartItemIds.id === productDetail._id) {
+            // quantity 정보를 넣어줌
+            res.data.product[index].quantity = cartItemIds.quantity;
+          }
+        });
+      });
+      return res.data;
     });
 
   return {

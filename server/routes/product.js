@@ -112,18 +112,19 @@ router.get("/product_by_id", (req, res) => {
 
   if (type === "array") {
     // string 형태로 뭉쳐서 나온 아이디 목록을 배열로 변경
-    let ids = req.query.id.splice(",");
+    let ids = req.query.id.split(",");
 
     productIds = ids.map((item) => {
       return item;
     });
   }
 
+  // productId를 기반으로 찾은 아이템(들)을 반환
   Product.find({ _id: { $in: productIds } })
     .populate("writer")
     .exec((err, product) => {
       if (err) return res.status(400).send(err);
-      return res.status(200).send({ succress: true, product });
+      return res.status(200).json({ succress: true, product });
     });
 });
 
