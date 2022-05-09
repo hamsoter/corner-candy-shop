@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
-import { getCartItems } from "../../../_actions/user_actions";
+import { getCartItems, removeCartItem } from "../../../_actions/user_actions";
 import UserCardBlock from "./Sections/UserCardBlock";
 
 function CartPage({ user }) {
@@ -17,6 +17,12 @@ function CartPage({ user }) {
     });
 
     setTotalPrice(total);
+  };
+
+  const removeFormCart = (productId) => {
+    console.log(productId);
+    // 리덕스의 state를 변경해야 함
+    dispatch(removeCartItem(productId)).then((res) => {});
   };
 
   useEffect(() => {
@@ -42,7 +48,10 @@ function CartPage({ user }) {
     <main>
       <h1>장바구니</h1>
       <div>
-        <UserCardBlock products={user.cartDetail}></UserCardBlock>
+        <UserCardBlock
+          products={user.cartDetail}
+          removeItem={removeFormCart}
+        ></UserCardBlock>
       </div>
       <div>
         <h2>합계: $ {totalPrice.toLocaleString()}</h2>

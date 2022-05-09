@@ -3,7 +3,7 @@ import { Table, Button } from "antd";
 import styles from "../CartPage.module.css";
 import { CloseOutlined, SmileOutlined } from "@ant-design/icons";
 
-function UserCardBlock({ products }) {
+function UserCardBlock({ products, removeItem }) {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
   const data = [];
@@ -35,6 +35,8 @@ function UserCardBlock({ products }) {
     setSelectedRowKeys(selectedRowKeys);
   };
 
+  // const
+
   products &&
     products.forEach((item, index) => {
       data.push({
@@ -48,6 +50,9 @@ function UserCardBlock({ products }) {
               alignItems: "center",
               justifyContent: "center",
               width: "1rem",
+            }}
+            onClick={() => {
+              removeItem(item._id);
             }}
           >
             <CloseOutlined />
@@ -71,14 +76,6 @@ function UserCardBlock({ products }) {
         ),
       });
     });
-  // for (let i = 0; i < 46; i++) {
-  //   data.push({
-  //     key: i,
-  //     name: `Edward King ${i}`,
-  //     age: 32,
-  //     address: `London, Park Lane no. ${i}`,
-  //   });
-  // }
 
   const rowSelection = {
     selectedRowKeys,
