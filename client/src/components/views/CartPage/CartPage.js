@@ -27,9 +27,7 @@ function CartPage({ user }) {
     <main>
       <h1>장바구니</h1>
       <div>
-        <UserCardBlock
-          products={user.cartDetail && user.cartDetail.product}
-        ></UserCardBlock>
+        <UserCardBlock products={user.cartDetail}></UserCardBlock>
       </div>
     </main>
   );

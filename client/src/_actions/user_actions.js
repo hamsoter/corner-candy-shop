@@ -75,10 +75,10 @@ export function getCartItems(cartItemIds, userCart) {
     .get(`/api/product/product_by_id?id=${cartItemIds}&type=array`)
     .then((res) => {
       userCart.forEach((cartItemIds) => {
-        res.data.product.forEach((productDetail, index) => {
+        res.data.forEach((productDetail, index) => {
           if (cartItemIds.id === productDetail._id) {
             // quantity 정보를 넣어줌
-            res.data.product[index].quantity = cartItemIds.quantity;
+            res.data[index].quantity = cartItemIds.quantity;
           }
         });
       });

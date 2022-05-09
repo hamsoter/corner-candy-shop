@@ -20,7 +20,7 @@ function DetailProductPage({ match }) {
         // 결과를 하나만 가져오기 위한 &type=single
         `/api/product/product_by_id?id=${productId}&type=single`
       );
-      setProduct(result.data.product[0]);
+      setProduct(result.data[0]);
     } catch (err) {
       console.log(err);
     }
