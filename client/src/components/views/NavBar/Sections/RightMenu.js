@@ -34,23 +34,21 @@ function RightMenu(props) {
   } else {
     return (
       <Menu mode={props.mode}>
-        <Menu.Item key="cart" style={{ paddingRight: "20px" }}>
-          <Badge count={5}>
-            <a
-              href="/user/cart"
-              style={{ marginRight: "-20px", color: "#66777" }}
-            >
+        <Menu.Item key="upload">
+          <a href="/product/upload">꿈 등록</a>
+        </Menu.Item>
+        <Menu.Item key="cart">
+          <Badge count={5} offset={[-20, 0]}>
+            <a href="/user/cart">
               <ShoppingCartOutlined
                 style={{
                   fontSize: "20px",
                   marginBottom: "24px",
+                  marginLeft: 5,
                 }}
               />
             </a>
           </Badge>
-        </Menu.Item>
-        <Menu.Item key="upload">
-          <a href="/product/upload">꿈 등록</a>
         </Menu.Item>
         <Menu.Item key="logout">
           <a onClick={logoutHandler}>로그아웃</a>

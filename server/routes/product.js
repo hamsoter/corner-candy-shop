@@ -107,11 +107,19 @@ router.post("/products", (req, res) => {
 router.get("/product_by_id", (req, res) => {
   // productId를 이용하여 db에서 productid와 같은 상품의 정보를 가져옴
 
-  const type = req.query.type;
+  let type = req.query.type;
+  let productIds = req.query.id;
 
-  const productId = req.query.id;
+  if (type === "array") {
+    // string 형태로 뭉쳐서 나온 아이디 목록을 배열로 변경
+    let ids = req.query.id.splice(",");
 
-  Product.find({ _id: productId })
+    productIds = ids.map((item) => {
+      return item;
+    });
+  }
+
+  Product.find({ _id: { $in: productIds } })
     .populate("writer")
     .exec((err, product) => {
       if (err) return res.status(400).send(err);
