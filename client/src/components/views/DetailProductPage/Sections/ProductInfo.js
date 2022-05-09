@@ -9,12 +9,9 @@ function ProductInfo({ product }) {
   const genreVal = genres[product.genre].value;
   const sizeVal = sizes[product.size].value;
 
-  console.log(product);
-  console.log(sizeVal);
-
   const dispatch = useDispatch();
 
-  const clickHandler = (e) => {
+  const clickHandler = () => {
     dispatch(addToCart(product._id));
   };
 

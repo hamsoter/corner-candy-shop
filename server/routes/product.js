@@ -40,8 +40,6 @@ router.post("/", (req, res) => {
 
   const product = new Product(req.body);
 
-  console.log(product);
-
   product.save((err) => {
     if (err) return res.status(400).json({ success: false, err });
     return res.status(200).json({ success: true });
@@ -71,8 +69,6 @@ router.post("/products", (req, res) => {
       }
     }
   }
-
-  console.log(findArgs);
 
   if (term) {
     Product.find(findArgs)
@@ -114,7 +110,6 @@ router.get("/product_by_id", (req, res) => {
   const type = req.query.type;
 
   const productId = req.query.id;
-
 
   Product.find({ _id: productId })
     .populate("writer")

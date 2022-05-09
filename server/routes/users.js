@@ -18,6 +18,8 @@ router.get("/auth", auth, (req, res) => {
     lastname: req.user.lastname,
     role: req.user.role,
     image: req.user.image,
+    cart: req.user.cart,
+    history: req.user.history,
   });
 });
 
@@ -85,7 +87,7 @@ router.post("/addToCart", auth, (req, res) => {
       User.findOneAndUpdate(
         {
           // 유저를 먼저 찾은 후 카트안의 중복 아이템을 잡아냄
-          id: req.user._id,
+          _id: req.user._id,
           "cart.id": req.body.productId,
         },
         {
@@ -100,23 +102,23 @@ router.post("/addToCart", auth, (req, res) => {
         // 프론트에 전송
         (err, userInfo) => {
           if (err) return res.status(400).json({ success: false, err });
-          return res.status(200).send(userInfo.cart);
+          res.status(200).send(userInfo.cart);
         }
       );
 
       // 새 상품 장바구니 추가
     } else {
       User.findOneAndUpdate(
+        // 카트를 업데이트할 유저를 찾음
+        { _id: req.user._id },
+        // 새상품 push
         {
-          // 카트를 업데이트할 유저를 찾음
-          id: req.user._id,
-        },
-        {
-          // 새상품 push
           $push: {
-            cart: req.body.productId,
-            quantity: 1,
-            date: Date.now(),
+            cart: {
+              id: req.body.productId,
+              quantity: 1,
+              date: Date.now(),
+            },
           },
         },
         { new: true },
@@ -124,7 +126,8 @@ router.post("/addToCart", auth, (req, res) => {
         // 프론트에 전송
         (err, userInfo) => {
           if (err) return res.status(400).json({ success: false, err });
-          return res.status(200).send(userInfo.cart);
+
+          res.status(200).send(userInfo.cart);
         }
       );
     }

@@ -59,20 +59,16 @@ function LandingPage() {
       limit: limit,
       filters: filters,
     };
-    console.log(body);
     fetchData(body);
     setSkip(0);
   };
 
   const handleFilters = (filterItem, category) => {
-    console.log(category, filterItem);
-
     // filters형식을 한 새로운 객체
     const newFilters = { ...filters };
 
     // filters 형식을 한 새 객체에 넘겨받은
     newFilters[category] = filterItem;
-    console.log("new", newFilters);
 
     showFilteredResults(newFilters);
     setFilters(newFilters);

@@ -20,10 +20,7 @@ function FileUpload({ refreshFunction }) {
 
     formData.append("file", acceptedFiles[0]);
 
-    console.log(formData);
-
     Axios.post("/api/product/image", formData, config).then((res) => {
-      console.log(res.data.filePath);
       if (res.data.success) {
         setImageSrc(res.data.filePath);
         refreshFunction(res.data.filePath);

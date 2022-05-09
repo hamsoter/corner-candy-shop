@@ -57,13 +57,9 @@ export function addToCart(id) {
     productId: id,
   };
 
-  console.log("addToCart");
-
   const request = axios
     .post(`${USER_SERVER}/addToCart`, body)
     .then((res) => res.data);
-
-  console.log("addToCart2");
 
   return {
     type: ADD_TO_CART,

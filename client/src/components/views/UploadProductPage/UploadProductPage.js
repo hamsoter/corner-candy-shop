@@ -66,7 +66,6 @@ function UploadProductPage({ user, history }) {
   };
 
   const selectHandler = (e, point) => {
-    console.log(e.target.value);
     point(e.target.value);
   };
 
