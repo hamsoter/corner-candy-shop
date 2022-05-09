@@ -1,16 +1,22 @@
 import { Button, Descriptions } from "antd";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { genres, sizes } from "../../LandingPage/Sections/Datas";
 import styles from "./Product.module.css";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../../../_actions/user_actions";
 
 function ProductInfo({ product }) {
   const genreVal = genres[product.genre].value;
   const sizeVal = sizes[product.size].value;
 
-  console.log(product.size);
+  console.log(product);
   console.log(sizeVal);
 
-  const clickHandler = (e) => {};
+  const dispatch = useDispatch();
+
+  const clickHandler = (e) => {
+    dispatch(addToCart(product._id));
+  };
 
   return (
     <section className={styles.productInfoBox}>

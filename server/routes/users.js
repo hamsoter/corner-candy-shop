@@ -69,4 +69,67 @@ router.get("/logout", auth, (req, res) => {
   );
 });
 
+router.post("/addToCart", auth, (req, res) => {
+  // 먼저 user collection에서 로그인 유저의 정보 가져오기
+  User.findOne({ _id: req.user._id }, (err, userInfo) => {
+    // 지금 장바구니 상품과 중복상품인지 검사
+    let duplicate = false;
+    userInfo.cart.forEach((item) => {
+      if (item.id === req.body.productId) {
+        duplicate = true;
+      }
+    });
+
+    // 중복 상품 장바구니 추가
+    if (duplicate) {
+      User.findOneAndUpdate(
+        {
+          // 유저를 먼저 찾은 후 카트안의 중복 아이템을 잡아냄
+          id: req.user._id,
+          "cart.id": req.body.productId,
+        },
+        {
+          $inc: {
+            // +1 카운트
+            "cart.$.quantity": 1,
+          },
+        },
+        // 업데이트된 정보를 출력
+        { new: true },
+
+        // 프론트에 전송
+        (err, userInfo) => {
+          if (err) return res.status(400).json({ success: false, err });
+          return res.status(200).send(userInfo.cart);
+        }
+      );
+
+      // 새 상품 장바구니 추가
+    } else {
+      User.findOneAndUpdate(
+        {
+          // 카트를 업데이트할 유저를 찾음
+          id: req.user._id,
+        },
+        {
+          // 새상품 push
+          $push: {
+            cart: req.body.productId,
+            quantity: 1,
+            date: Date.now(),
+          },
+        },
+        { new: true },
+
+        // 프론트에 전송
+        (err, userInfo) => {
+          if (err) return res.status(400).json({ success: false, err });
+          return res.status(200).send(userInfo.cart);
+        }
+      );
+    }
+  });
+  //저장
+});
+
 module.exports = router;
