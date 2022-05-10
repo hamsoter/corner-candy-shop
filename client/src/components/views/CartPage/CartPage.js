@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
 import { getCartItems, removeCartItem } from "../../../_actions/user_actions";
+import Paypal from "../../utils/PayPal";
 import UserCardBlock from "./Sections/UserCardBlock";
 
 function CartPage({ user }) {
@@ -58,6 +59,8 @@ function CartPage({ user }) {
       <div>
         <h2>합계: $ {totalPrice.toLocaleString()}</h2>
       </div>
+
+      {totalPrice ? <Paypal></Paypal> : ""}
     </main>
   );
 }
