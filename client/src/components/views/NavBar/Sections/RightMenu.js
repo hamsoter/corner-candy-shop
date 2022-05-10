@@ -34,11 +34,17 @@ function RightMenu(props) {
   } else {
     return (
       <Menu mode={props.mode}>
+        <Menu.Item key="history">
+          <a href="/history">주문내역</a>
+        </Menu.Item>
         <Menu.Item key="upload">
-          <a href="/product/upload">꿈 등록</a>
+          <a href="/product/upload">꿈 판매</a>
         </Menu.Item>
         <Menu.Item key="cart">
-          <Badge count={5} offset={[-20, 0]}>
+          <Badge
+            count={user.userData && user.userData.cart.length}
+            offset={[-20, 0]}
+          >
             <a href="/user/cart">
               <ShoppingCartOutlined
                 style={{

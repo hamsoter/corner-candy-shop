@@ -14,7 +14,7 @@ function CartPage({ user, history }) {
   const dispatch = useDispatch();
 
   const [totalPrice, setTotalPrice] = useState(0);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [showPay, setShowPay] = useState(true);
 
   const calculateTotalPrice = (cartDetail) => {
     let total = 0;
@@ -52,6 +52,8 @@ function CartPage({ user, history }) {
         console.log("결제완");
 
         history.push("user/orderSuccess/fdsfdssdf");
+
+        setShowPay(false);
       }
       return;
     });
@@ -73,6 +75,11 @@ function CartPage({ user, history }) {
         });
       }
     }
+
+    if (user.userData && user.userData.cart.length === 0) {
+      setShowPay(false);
+      console.log("0개임");
+    }
   }, [user.userData]);
 
   return (
@@ -87,8 +94,14 @@ function CartPage({ user, history }) {
       <div>
         <h2>합계: $ {totalPrice.toLocaleString()}</h2>
       </div>
-      <Paypal price={totalPrice} onSuccess={transactionSuccess}></Paypal>) : (
-      <></>)
+      {showPay && (
+        <Paypal
+          showPay={showPay}
+          price={totalPrice}
+          data={user.userData}
+          onSuccess={transactionSuccess}
+        ></Paypal>
+      )}
     </main>
   );
 }
