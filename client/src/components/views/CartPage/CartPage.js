@@ -55,7 +55,6 @@ function CartPage({ user, history }) {
       }
       return;
     });
-    // 결제정보 저장
   };
 
   useEffect(() => {
