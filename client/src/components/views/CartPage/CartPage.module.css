@@ -2,18 +2,17 @@
   display: flex;
   align-items: center;
 }
-.titleBox > span {
-  margin-left: 1rem;
-}
 
 .thumbnail {
   width: 80px;
   height: 55px;
+  margin-right: 1rem;
   object-fit: cover;
 }
 .noThumbnail {
   width: 80px;
   height: 55px;
+  margin-right: 1rem;
   border: 1px solid lightgrey;
   display: flex;
   align-items: center;

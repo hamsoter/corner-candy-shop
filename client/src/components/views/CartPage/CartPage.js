@@ -22,7 +22,9 @@ function CartPage({ user }) {
   const removeFormCart = (productId) => {
     console.log(productId);
     // 리덕스의 state를 변경해야 함
-    dispatch(removeCartItem(productId)).then((res) => {});
+    dispatch(removeCartItem(productId)).then((res) => {
+      console.log(res);
+    });
   };
 
   useEffect(() => {

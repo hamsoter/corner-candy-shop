@@ -1,10 +1,16 @@
 import React, { useState } from "react";
-import { Table, Button } from "antd";
+import { Table, Button, Modal } from "antd";
 import styles from "../CartPage.module.css";
-import { CloseOutlined, SmileOutlined } from "@ant-design/icons";
+import {
+  CloseOutlined,
+  ExclamationCircleOutlined,
+  SmileOutlined,
+} from "@ant-design/icons";
 
 function UserCardBlock({ products, removeItem }) {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
+  const { confirm } = Modal;
 
   const data = [];
   const columns = [
@@ -30,6 +36,22 @@ function UserCardBlock({ products, removeItem }) {
     },
   ];
 
+  const showDeleteConfirm = (removeId) =>
+    confirm({
+      title: "이 꿈들을 몽땅 지울까요?",
+      icon: <ExclamationCircleOutlined />,
+      content: "content",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk() {
+        removeItem(removeId);
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
+
   const onSelectChange = (selectedRowKeys) => {
     console.log("selectedRowKeys changed: ", selectedRowKeys);
     setSelectedRowKeys(selectedRowKeys);
@@ -52,7 +74,7 @@ function UserCardBlock({ products, removeItem }) {
               width: "1rem",
             }}
             onClick={() => {
-              removeItem(item._id);
+              showDeleteConfirm(item._id);
             }}
           >
             <CloseOutlined />
