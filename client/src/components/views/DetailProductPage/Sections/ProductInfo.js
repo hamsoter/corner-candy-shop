@@ -8,8 +8,9 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../../../_actions/user_actions";
 
 function ProductInfo({ product, history }) {
-  const genreVal = genres[product.genre].value;
-  const sizeVal = sizes[product.size].value;
+  const genreVal = genres[product.genre + 1].value;
+
+  const sizeVal = sizes[product.size + 1].value;
 
   const pathId = window.location.pathname.split("/")[2];
 

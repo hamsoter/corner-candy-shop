@@ -45,9 +45,9 @@ function UploadProductPage({ user, history }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
-  const [genre, setGenre] = useState(genres[0].value);
-  const [mood, setMood] = useState(moods[0].value);
-  const [size, setSize] = useState(sizes[0].value);
+  const [genre, setGenre] = useState(genres[0].key);
+  const [mood, setMood] = useState(moods[0].key);
+  const [size, setSize] = useState(sizes[0].key);
   const [thumbnail, setThumbnail] = useState("");
 
   const titleChangeHandler = (e) => {
@@ -74,7 +74,7 @@ function UploadProductPage({ user, history }) {
   };
 
   const selectedIndex = (dataObj, selectedValue) => {
-    return dataObj.findIndex((item) => item.value === selectedValue) + 1;
+    return dataObj.findIndex((item) => item.key === selectedValue) + 1;
   };
 
   const submitHandler = () => {
