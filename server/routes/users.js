@@ -2,8 +2,10 @@ const express = require("express");
 const router = express.Router();
 const { User } = require("../models/User");
 const { Product } = require("../models/Product");
+const { Payment } = require("../models/Payment");
 
 const { auth } = require("../middleware/auth");
+const { default: async, timeout } = require("async");
 
 //=================================
 //             User
@@ -163,6 +165,102 @@ router.get("/removeFormCart", auth, (req, res) => {
             cart,
           });
         });
+    }
+  );
+});
+
+router.post("/successBuy", auth, (req, res) => {
+  // 세 가지 일을 해야 한다.
+
+  // 1. User Collection/history 에 간단한 결제정보 저장
+  // 2. Payment Collection 에 자세한 결제정보 저장
+  // 3. Product Collection 안에 있는 sold 필드 정보 업데이트 시키기
+
+  let history = [];
+  let transactionData = {};
+
+  // 0. 넣어줄 데아터 생성
+
+  // 간단한 결제 정보 (history)
+  req.body.cartDetail.forEach((item) => {
+    history.push({
+      dateOfPurchase: Date.now(),
+      name: item.title,
+      id: item._id,
+      price: item.price,
+      quantity: item.quantity,
+      paymentId: req.body.paymentData.paymentID,
+    });
+  });
+
+  // 자세한 결제 정보 (transactionData)
+  transactionData.user = {
+    id: req.user._id,
+    name: req.user.name,
+    email: req.user.email,
+  };
+
+  transactionData.data = req.body.paymentData;
+  transactionData.product = history;
+
+  // 1-1. DB collection/user에 history 정보 저장, 카트 비우기
+
+  console.log(req.user._id + "!!!!!!!!!!!");
+  User.findOneAndUpdate(
+    { _id: req.user._id },
+    {
+      $push: { history: history },
+      // 변화. 카트를 비우기
+      $set: { cart: [] },
+    },
+    { new: true },
+    (err, user) => {
+      if (err) return res.json({ success: false, err });
+
+      console.log(user + "유저");
+      // 2. Payment Collection 에 자세한 결제정보 저장
+      const payment = new Payment(transactionData);
+
+      payment.save((err, doc) => {
+        if (err) return res.json({ success: false, err });
+
+        // 3. Product Collection 안에 있는 sold 필드 정보 업데이트 시키기
+        // 몇개의 상품이 팔렸는지 저장해주기
+
+        let products = [];
+
+        doc.product.forEach((item) => {
+          products.push({ id: item.id, quantity: item.quantity });
+        });
+
+        // first Item   quantity 2
+        // second Item  quantity 3
+        // ...
+
+        // 내가 구매한 상품 하나하나를 전부 컨트롤
+        async.eachSeries(
+          products,
+          (item, callback) => {
+            Product.update(
+              { _id: item.id },
+              {
+                $inc: {
+                  sold: item.quantity,
+                },
+              },
+              { new: false },
+              callback
+            );
+          },
+          (err) => {
+            if (err) return res.status(400).json({ success: false, err });
+
+            res
+              .status(200)
+              .json({ success: true, cart: user.cart, cartDetail: [] });
+          }
+        );
+      });
     }
   );
 });

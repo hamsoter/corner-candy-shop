@@ -43,6 +43,11 @@ function App() {
             component={Auth(DetailProductPage, null)}
           />
           <Route exact path="/user/cart" component={Auth(CartPage, true)} />
+          <Route
+            exact
+            path="/user/orderSuccess/:orderId"
+            component={Auth(CartPage, true)}
+          />
         </Switch>
       </div>
       <Footer />

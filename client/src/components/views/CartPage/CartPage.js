@@ -1,21 +1,29 @@
+import { Result } from "antd";
 import React, { useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
-import { getCartItems, removeCartItem } from "../../../_actions/user_actions";
+import {
+  getCartItems,
+  onSuccessBuy,
+  removeCartItem,
+} from "../../../_actions/user_actions";
 import Paypal from "../../utils/PayPal";
 import UserCardBlock from "./Sections/UserCardBlock";
 
-function CartPage({ user }) {
+function CartPage({ user, history }) {
   const dispatch = useDispatch();
 
   const [totalPrice, setTotalPrice] = useState(0);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const calculateTotalPrice = (cartDetail) => {
     let total = 0;
 
-    cartDetail.map((item) => {
-      total += parseInt(item.price, 10) * item.quantity;
-    });
+    if (cartDetail) {
+      cartDetail.map((item) => {
+        total += parseInt(item.price, 10) * item.quantity;
+      });
+    }
 
     setTotalPrice(total);
   };
@@ -26,6 +34,28 @@ function CartPage({ user }) {
     dispatch(removeCartItem(productId)).then((res) => {
       console.log(res);
     });
+  };
+
+  const transactionSuccess = (data) => {
+    // 카트 비우기
+
+    dispatch(
+      onSuccessBuy({
+        paymentData: data, // paypal에서 받은 데이터 전달
+        cartDetail: user.cartDetail, // 카트정보 전달
+      })
+    ).then((res) => {
+      if (res.payload.success) {
+        // total 초기화
+        calculateTotalPrice();
+        // setShowSuccess(true);
+        console.log("결제완");
+
+        history.push("user/orderSuccess/fdsfdssdf");
+      }
+      return;
+    });
+    // 결제정보 저장
   };
 
   useEffect(() => {
@@ -40,7 +70,6 @@ function CartPage({ user }) {
         // 첫번째 인자로는 디테일 정보를 받아올 cartItemIds
         // 두 번째 인자로는 장바구니에 담긴 갯수를 받아올 카트 자체
         dispatch(getCartItems(cartItemIds, user.userData.cart)).then((res) => {
-          console.log(res.payload);
           calculateTotalPrice(res.payload);
         });
       }
@@ -59,8 +88,8 @@ function CartPage({ user }) {
       <div>
         <h2>합계: $ {totalPrice.toLocaleString()}</h2>
       </div>
-
-      {totalPrice ? <Paypal></Paypal> : ""}
+      <Paypal price={totalPrice} onSuccess={transactionSuccess}></Paypal>) : (
+      <></>)
     </main>
   );
 }
