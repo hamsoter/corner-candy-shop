@@ -38,6 +38,7 @@ function CartPage({ user, history }) {
     });
   };
 
+  // 결제
   const transactionSuccess = (data) => {
     // 카트 비우기
 
@@ -52,7 +53,6 @@ function CartPage({ user, history }) {
         // total 초기화
         calculateTotalPrice();
         // setShowSuccess(true);
-        console.log("결제완");
 
         history.push("user/orderSuccess/fdsfdssdf");
 
@@ -102,7 +102,7 @@ function CartPage({ user, history }) {
 
   return (
     <main>
-      <h1>장바구니</h1>
+      <h1 style={{ marginLeft: " 1rem" }}>꿈바구니</h1>
       <div>
         <UserCardBlock
           products={user.cartDetail}

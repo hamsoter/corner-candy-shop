@@ -31,7 +31,7 @@ function UserCardBlock({ products, removeItem, selectHandler }) {
       width: "20%",
     },
     {
-      title: "삭제",
+      title: "",
       dataIndex: "remove",
       width: "10%",
     },
@@ -41,7 +41,6 @@ function UserCardBlock({ products, removeItem, selectHandler }) {
     confirm({
       title: "이 꿈들을 몽땅 지울까요?",
       icon: <ExclamationCircleOutlined />,
-      content: "content",
       okText: "Yes",
       okType: "danger",
       cancelText: "No",
