@@ -15,6 +15,8 @@ function CartPage({ user, history }) {
 
   const [totalPrice, setTotalPrice] = useState(0);
   const [showPay, setShowPay] = useState(true);
+  const [selectedProduct, setSelectedProduct] = useState([{}]);
+  const [unSelect, setUnSelect] = useState();
 
   const calculateTotalPrice = (cartDetail) => {
     let total = 0;
@@ -43,6 +45,7 @@ function CartPage({ user, history }) {
       onSuccessBuy({
         paymentData: data, // paypal에서 받은 데이터 전달
         cartDetail: user.cartDetail, // 카트정보 전달
+        selectDetail: selectedProduct,
       })
     ).then((res) => {
       if (res.payload.success) {
@@ -59,6 +62,26 @@ function CartPage({ user, history }) {
     });
   };
 
+  const selectHandler = (indexs) => {
+    let body = indexs.map((item) => {
+      return user.cartDetail[item];
+    });
+
+    setSelectedProduct(body);
+    calculateTotalPrice(body);
+
+    const cartItems = user.userData.cart;
+    const selectItems = body;
+
+    const filterUnselected = cartItems.filter((cartItem) => {
+      const isSelected = selectItems.find((selectItem) => {
+        return selectItem._id == cartItem.id;
+      });
+      return !isSelected;
+    });
+    setUnSelect(filterUnselected);
+  };
+
   useEffect(() => {
     let cartItemIds = [];
     // redux user cart state에 불러올 상품이 있는지 확인
@@ -71,14 +94,9 @@ function CartPage({ user, history }) {
         // 첫번째 인자로는 디테일 정보를 받아올 cartItemIds
         // 두 번째 인자로는 장바구니에 담긴 갯수를 받아올 카트 자체
         dispatch(getCartItems(cartItemIds, user.userData.cart)).then((res) => {
-          calculateTotalPrice(res.payload);
+          calculateTotalPrice([]);
         });
       }
-    }
-
-    if (user.userData && user.userData.cart.length === 0) {
-      setShowPay(false);
-      console.log("0개임");
     }
   }, [user.userData]);
 
@@ -88,7 +106,9 @@ function CartPage({ user, history }) {
       <div>
         <UserCardBlock
           products={user.cartDetail}
+          setTotalPrice={calculateTotalPrice}
           removeItem={removeFormCart}
+          selectHandler={selectHandler}
         ></UserCardBlock>
       </div>
       <div>

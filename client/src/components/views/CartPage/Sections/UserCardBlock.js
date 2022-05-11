@@ -7,12 +7,13 @@ import {
   SmileOutlined,
 } from "@ant-design/icons";
 
-function UserCardBlock({ products, removeItem }) {
+function UserCardBlock({ products, removeItem, selectHandler }) {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
   const { confirm } = Modal;
 
   const data = [];
+
   const columns = [
     {
       title: "꿈 정보",
@@ -52,9 +53,11 @@ function UserCardBlock({ products, removeItem }) {
       },
     });
 
-  const onSelectChange = (selectedRowKeys) => {
-    console.log("selectedRowKeys changed: ", selectedRowKeys);
-    setSelectedRowKeys(selectedRowKeys);
+  const onSelectChange = (items) => {
+    selectHandler(items);
+    setSelectedRowKeys(items);
+
+    // setTotalPrice();
   };
 
   // const
@@ -104,8 +107,6 @@ function UserCardBlock({ products, removeItem }) {
     onChange: onSelectChange,
   };
   const hasSelected = selectedRowKeys.length > 0;
-
-  console.log(selectedRowKeys);
 
   return (
     <div>
