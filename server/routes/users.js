@@ -181,8 +181,10 @@ router.post("/successBuy", auth, (req, res) => {
 
   // 0. 넣어줄 데아터 생성
 
+  console.log(req.body.selectDetail);
+
   // 간단한 결제 정보 (history)
-  req.body.cartDetail.forEach((item) => {
+  req.body.selectDetail.forEach((item) => {
     history.push({
       dateOfPurchase: Date.now(),
       name: item.title,
@@ -205,25 +207,24 @@ router.post("/successBuy", auth, (req, res) => {
 
   // 1-1. DB collection/user에 history 정보 저장, 카트 비우기
 
-  console.log(req.user._id + "!!!!!!!!!!!");
   User.findOneAndUpdate(
     { _id: req.user._id },
     {
       $push: { history: history },
       // 변화. 카트를 비우기
-      $set: { cart: [] },
+      $set: { cart: req.body.restCartItem },
     },
     { new: true },
     (err, user) => {
       if (err) return res.json({ success: false, err });
 
-      console.log(user + "유저");
       // 2. Payment Collection 에 자세한 결제정보 저장
       const payment = new Payment(transactionData);
 
       payment.save((err, doc) => {
         if (err) return res.json({ success: false, err });
 
+        console.log(doc);
         // 3. Product Collection 안에 있는 sold 필드 정보 업데이트 시키기
         // 몇개의 상품이 팔렸는지 저장해주기
 
@@ -255,9 +256,11 @@ router.post("/successBuy", auth, (req, res) => {
           (err) => {
             if (err) return res.status(400).json({ success: false, err });
 
-            res
-              .status(200)
-              .json({ success: true, cart: user.cart, cartDetail: [] });
+            res.status(200).json({
+              success: true,
+              cart: user.cart,
+              cartDetail: [],
+            });
           }
         );
       });

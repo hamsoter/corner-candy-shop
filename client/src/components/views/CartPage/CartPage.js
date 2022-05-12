@@ -17,6 +17,7 @@ function CartPage({ user, history }) {
   const [showPay, setShowPay] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState([{}]);
   const [unSelect, setUnSelect] = useState();
+  const [unSelectDetail, setUnSelectDetail] = useState();
 
   const calculateTotalPrice = (cartDetail) => {
     let total = 0;
@@ -47,6 +48,8 @@ function CartPage({ user, history }) {
         paymentData: data, // paypal에서 받은 데이터 전달
         cartDetail: user.cartDetail, // 카트정보 전달
         selectDetail: selectedProduct,
+        restCartItem: unSelect,
+        restCartDetail: unSelectDetail,
       })
     ).then((res) => {
       if (res.payload.success) {
@@ -71,6 +74,7 @@ function CartPage({ user, history }) {
     calculateTotalPrice(body);
 
     const cartItems = user.userData.cart;
+    const cartDetails = user.cartDetail;
     const selectItems = body;
 
     const filterUnselected = cartItems.filter((cartItem) => {
@@ -79,7 +83,16 @@ function CartPage({ user, history }) {
       });
       return !isSelected;
     });
+
+    const filterUnselectedCartDetail = cartDetails.filter((cartItem) => {
+      const isSelected = selectItems.find((selectItem) => {
+        return selectItem._id == cartItem._id;
+      });
+      return !isSelected;
+    });
+
     setUnSelect(filterUnselected);
+    setUnSelectDetail(filterUnselectedCartDetail);
   };
 
   useEffect(() => {
