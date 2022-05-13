@@ -55,9 +55,10 @@ export function logoutUser() {
   };
 }
 
-export function addToCart(id) {
+export function addToCart(id, newQuantity) {
   const body = {
     productId: id,
+    newQuantity: newQuantity ? newQuantity : false,
   };
 
   const request = axios

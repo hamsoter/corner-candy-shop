@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
 import {
+  addToCart,
   getCartItems,
   onSuccessBuy,
   removeCartItem,
@@ -95,6 +96,13 @@ function CartPage({ user, history }) {
     setUnSelectDetail(filterUnselectedCartDetail);
   };
 
+  // 상품 수량 변경
+  const productQuantityChange = (changeCount, itemId) => {
+    console.log(itemId);
+
+    dispatch(addToCart(itemId, changeCount));
+  };
+
   useEffect(() => {
     let cartItemIds = [];
     // redux user cart state에 불러올 상품이 있는지 확인
@@ -122,6 +130,7 @@ function CartPage({ user, history }) {
           setTotalPrice={calculateTotalPrice}
           removeItem={removeFormCart}
           selectHandler={selectHandler}
+          quantityChange={productQuantityChange}
         ></UserCardBlock>
       </div>
       <div>

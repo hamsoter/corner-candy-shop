@@ -7,7 +7,12 @@ import {
   SmileOutlined,
 } from "@ant-design/icons";
 
-function UserCardBlock({ products, removeItem, selectHandler }) {
+function UserCardBlock({
+  products,
+  removeItem,
+  selectHandler,
+  quantityChange,
+}) {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
   const { confirm } = Modal;
@@ -59,13 +64,27 @@ function UserCardBlock({ products, removeItem, selectHandler }) {
     // setTotalPrice();
   };
 
+  // 수량 변경
+  function onInputChange(value, itemId) {
+    quantityChange(value, itemId);
+  }
+
   // const
 
   products &&
     products.forEach((item, index) => {
       data.push({
         key: index,
-        quantity: `${item.quantity}`,
+        quantity: (
+          <InputNumber
+            min={1}
+            max={100}
+            defaultValue={item.quantity}
+            onChange={(value) => {
+              onInputChange(value, item._id);
+            }}
+          />
+        ),
         price: `$ ${item.price.toLocaleString()}`,
         remove: (
           <Button

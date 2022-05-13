@@ -79,14 +79,41 @@ router.post("/addToCart", auth, (req, res) => {
   User.findOne({ _id: req.user._id }, (err, userInfo) => {
     // 지금 장바구니 상품과 중복상품인지 검사
     let duplicate = false;
+    let quantityChange = false;
     userInfo.cart.forEach((item) => {
-      if (item.id === req.body.productId) {
+      if (req.body.newQuantity) {
+        quantityChange = true;
+      } else if (item.id === req.body.productId) {
         duplicate = true;
       }
     });
 
-    // 중복 상품 장바구니 추가
-    if (duplicate) {
+    console.log("새슈량!!!!", req.body.newQuantity);
+
+    // 수량변경
+    if (quantityChange) {
+      console.log(req.body.productId);
+      User.findOneAndUpdate(
+        {
+          // 유저를 먼저 찾은 후 카트안의 중복 아이템을 잡아냄
+          _id: req.user._id,
+          "cart.id": req.body.productId,
+        },
+        {
+          $set: {
+            "cart.$.quantity": req.body.newQuantity,
+          },
+        },
+        // 업데이트된 정보를 출력
+        { new: true },
+        // 프론트에 전송
+        (err, userInfo) => {
+          console.log(userInfo);
+          if (err) return res.status(400).json({ success: false, err });
+          res.status(200).send(userInfo.cart);
+        }
+      );
+    } else if (duplicate) {
       User.findOneAndUpdate(
         {
           // 유저를 먼저 찾은 후 카트안의 중복 아이템을 잡아냄
