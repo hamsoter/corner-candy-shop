@@ -42,7 +42,7 @@ function UserCardBlock({
     },
   ];
 
-  const showDeleteConfirm = (removeId) =>
+  const showDeleteConfirm = (removeId, item) =>
     confirm({
       title: "이 꿈들을 몽땅 지울까요?",
       icon: <ExclamationCircleOutlined />,
@@ -50,18 +50,27 @@ function UserCardBlock({
       okType: "danger",
       cancelText: "No",
       onOk() {
-        removeItem(removeId);
+        removeItem(removeId, item, removeAction);
       },
       onCancel() {
         console.log("Cancel");
       },
     });
 
+  // 지울시 selected key 목록 초기화
+  const removeAction = (index) => {
+    const restKeys = selectedRowKeys;
+    restKeys.splice(index, 1);
+    console.log("rest", restKeys);
+
+    setSelectedRowKeys(restKeys);
+    selectHandler(restKeys);
+  };
+
   const onSelectChange = (items) => {
+    console.log(items);
     selectHandler(items);
     setSelectedRowKeys(items);
-
-    // setTotalPrice();
   };
 
   // 수량 변경
@@ -95,7 +104,7 @@ function UserCardBlock({
               width: "1rem",
             }}
             onClick={() => {
-              showDeleteConfirm(item._id);
+              showDeleteConfirm(item._id, index);
             }}
           >
             <CloseOutlined />

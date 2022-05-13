@@ -20,32 +20,38 @@ function CartPage({ user, history }) {
   const [unSelect, setUnSelect] = useState();
   const [unSelectDetail, setUnSelectDetail] = useState();
 
-  const calculateTotalPrice = (cartDetail) => {
-    let total = 0;
+  const removeFormCart = (productId, indexs, removeAction) => {
+    // 리덕스의 state를 변경
+    setShowPay(false); // 수정필요
 
-    if (cartDetail) {
-      cartDetail.map((item) => {
-        total += parseInt(item.price, 10) * item.quantity;
-      });
-    }
+    dispatch(removeCartItem(productId)).then((res) => {});
 
-    setTotalPrice(total);
+    removeAction(indexs);
+    removePriceCalc();
   };
 
-  const removeFormCart = (productId) => {
-    // 리덕스의 state를 변경해야 함
-    setShowPay(false);
-    dispatch(removeCartItem(productId)).then((res) => {});
+  //////////////// 가격 계산 ////////////////
+  const removePriceCalc = (indexs) => {
+    let total = 0;
+
+    // 지운 index를 찾아 selectProduct 배열에서 제거
+    selectedProduct.splice(indexs, 1);
+    setSelectedProduct(selectedProduct);
+
+    selectedProduct.map((item) => {
+      total += parseInt(item.price, 10) * item.quantity;
+    });
+
+    setTotalPrice(total);
   };
 
   const payBtnControl = (action, value) => {
     action(value);
   };
 
-  // 결제
+  // 결제 완료후
   const transactionSuccess = (data) => {
     // 카트 비우기
-
     dispatch(
       onSuccessBuy({
         paymentData: data, // paypal에서 받은 데이터 전달
@@ -57,7 +63,7 @@ function CartPage({ user, history }) {
     ).then((res) => {
       if (res.payload.success) {
         // total 초기화
-        calculateTotalPrice();
+        priceCalculate();
         // setShowSuccess(true);
 
         setShowPay(false);
@@ -72,8 +78,9 @@ function CartPage({ user, history }) {
       return user.cartDetail[item];
     });
 
+    // 선택한 프로젝트의 가격 계산
     setSelectedProduct(body);
-    calculateTotalPrice(body);
+    priceCalculate(body);
 
     const cartItems = user.userData.cart;
     const cartDetails = user.cartDetail;
@@ -99,9 +106,40 @@ function CartPage({ user, history }) {
 
   // 상품 수량 변경
   const productQuantityChange = (changeCount, itemId) => {
-    console.log(itemId);
-
     dispatch(addToCart(itemId, changeCount));
+
+    let total = 0;
+
+    // 변경된 total 계산
+    selectedProduct.map((item) => {
+      if (item._id === itemId) {
+        total += parseInt(item.price, 10) * changeCount;
+      } else {
+        total += parseInt(item.price, 10) * item.quantity;
+      }
+    });
+
+    setTotalPrice(total);
+  };
+
+  const priceCalculate = (products) => {
+    let total = 0;
+
+    if (products) {
+      products.map((item) => {
+        total += parseInt(item.price, 10) * item.quantity;
+        return total;
+      });
+
+      // select된 아이템이 있을 때만 계산
+    } else if (!isNaN(selectedProduct)) {
+      selectedProduct.map((item) => {
+        total += parseInt(item.price, 10) * item.quantity;
+        return total;
+      });
+    }
+
+    setTotalPrice(total);
   };
 
   useEffect(() => {
@@ -115,9 +153,7 @@ function CartPage({ user, history }) {
 
         // 첫번째 인자로는 디테일 정보를 받아올 cartItemIds
         // 두 번째 인자로는 장바구니에 담긴 갯수를 받아올 카트 자체
-        dispatch(getCartItems(cartItemIds, user.userData.cart)).then((res) => {
-          calculateTotalPrice([]);
-        });
+        dispatch(getCartItems(cartItemIds, user.userData.cart));
       }
     }
 
@@ -126,7 +162,7 @@ function CartPage({ user, history }) {
     } else {
       setShowPay(true);
     }
-  }, [user.userData]);
+  }, [user.userData, selectedProduct]);
 
   return (
     <main>
@@ -134,7 +170,6 @@ function CartPage({ user, history }) {
       <div>
         <UserCardBlock
           products={user.cartDetail}
-          setTotalPrice={calculateTotalPrice}
           removeItem={removeFormCart}
           selectHandler={selectHandler}
           quantityChange={productQuantityChange}
