@@ -33,11 +33,13 @@ function CartPage({ user, history }) {
   };
 
   const removeFormCart = (productId) => {
-    console.log(productId);
     // 리덕스의 state를 변경해야 함
-    dispatch(removeCartItem(productId)).then((res) => {
-      console.log(res);
-    });
+    setShowPay(false);
+    dispatch(removeCartItem(productId)).then((res) => {});
+  };
+
+  const payBtnControl = (action, value) => {
+    action(value);
   };
 
   // 결제
@@ -58,9 +60,8 @@ function CartPage({ user, history }) {
         calculateTotalPrice();
         // setShowSuccess(true);
 
-        history.push("/history");
-
         setShowPay(false);
+        history.push("/history");
       }
       return;
     });
@@ -119,6 +120,12 @@ function CartPage({ user, history }) {
         });
       }
     }
+
+    if (cartItemIds.length === 0) {
+      setShowPay(false);
+    } else {
+      setShowPay(true);
+    }
   }, [user.userData]);
 
   return (
@@ -138,9 +145,9 @@ function CartPage({ user, history }) {
       </div>
       {showPay && (
         <Paypal
-          showPay={showPay}
+          payBtnControl={payBtnControl}
           price={totalPrice}
-          data={user.userData}
+          showPay={showPay}
           onSuccess={transactionSuccess}
         ></Paypal>
       )}
