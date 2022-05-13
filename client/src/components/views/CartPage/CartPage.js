@@ -58,7 +58,7 @@ function CartPage({ user, history }) {
         calculateTotalPrice();
         // setShowSuccess(true);
 
-        history.push("user/orderSuccess/fdsfdssdf");
+        history.push("/history");
 
         setShowPay(false);
       }

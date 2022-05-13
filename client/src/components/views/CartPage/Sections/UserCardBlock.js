@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Table, Button, Modal } from "antd";
+import { Table, Button, Modal, InputNumber } from "antd";
 import styles from "../CartPage.module.css";
 import {
   CloseOutlined,
@@ -26,7 +26,7 @@ function UserCardBlock({
       width: "70%",
     },
     {
-      title: "개수",
+      title: "수량",
       dataIndex: "quantity",
       width: "10%",
     },
@@ -102,20 +102,20 @@ function UserCardBlock({
           </Button>
         ),
         title: item.thumbnail ? (
-          <div className={styles.titleBox}>
+          <a href={`/product/${item._id}`} className={styles.titleBox}>
             <img
               className={styles.thumbnail}
               src={`http://localhost:5000/${item.thumbnail}`}
             ></img>
             <span>{item.title}</span>
-          </div>
+          </a>
         ) : (
-          <div className={styles.titleBox}>
+          <a href={`/product/${item._id}`} className={styles.titleBox}>
             <div className={styles.noThumbnail}>
               <SmileOutlined />
             </div>
             <span>{item.title}</span>
-          </div>
+          </a>
         ),
       });
     });
