@@ -1,37 +1,74 @@
-import { Icon } from "antd";
+import { Icon, Modal } from "antd";
 import Axios from "axios";
 import React, { useCallback, useState } from "react";
 import styles from "./FileUpload.module.css";
-import { useFormik } from "formik";
 
-import { useDropzone } from "react-dropzone";
+import btnStyles from "../utils/buttons.module.css";
+
+import Dropzone, { useDropzone } from "react-dropzone";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 function FileUpload({ refreshFunction }) {
   const [imageSrc, setImageSrc] = useState("");
   const [isHovering, setIsHovering] = useState(false);
 
-  const onDrop = useCallback((acceptedFiles) => {
+  const { info } = Modal;
+
+  console.log(btnStyles);
+
+  const showConfirmModal = () =>
+    info({
+      title: "잠깐만요!",
+      icon: <ExclamationCircleOutlined style={{ color: "#E8C07D" }} />,
+      okText: "칫. 네",
+      okButtonProps: { className: btnStyles.button },
+      maskClosable: true,
+      autoFocusButton: null,
+      okType: "primary",
+      content: (
+        <span>
+          <strong>.jpg, .png 형식만 올릴 수 있습니다!</strong> (죄송)<br></br>
+          자세한 이야기는 꿈에서 해요!
+        </span>
+      ),
+      onOk() {},
+      onCancel() {},
+    });
+
+  const onDrop = useCallback((acceptedFiles, fileRejections) => {
     let formData = new FormData();
 
-    // Backend로 보내는 req 정보
-    const config = {
-      header: { "content-type": "multipart/form-data" },
-    };
+    console.log();
 
-    formData.append("file", acceptedFiles[0]);
+    if (acceptedFiles.length === 1) {
+      // Backend로 보내는 req 정보
+      const config = {
+        header: { "content-type": "multipart/form-data" },
+      };
 
-    Axios.post("/api/product/image", formData, config).then((res) => {
-      if (res.data.success) {
-        setImageSrc(res.data.filePath);
-        refreshFunction(res.data.filePath);
-      } else {
-        alert("파일을 올리는데 실패했습니다.");
-      }
-    });
+      formData.append("file", acceptedFiles[0]);
+
+      Axios.post("/api/product/image", formData, config).then((res) => {
+        if (res.data.success) {
+          setImageSrc(res.data.filePath);
+          refreshFunction(res.data.filePath);
+        } else {
+          alert("파일을 올리는데 실패했습니다.");
+        }
+      });
+    } else {
+      showConfirmModal();
+    }
     setIsHovering(false);
   }, []);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: {
+      "image/jpeg": [],
+      "image/png": [],
+    },
+  });
   const deleteImg = () => {
     setImageSrc("");
     refreshFunction("");

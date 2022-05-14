@@ -1,0 +1,25 @@
+/* normal */
+.button {
+  background-color: #827397;
+  border-color: #827397;
+}
+
+.button:hover,
+.button:focus {
+  background-color: #363062;
+  border-color: #363062;
+}
+
+/* ghost */
+.ghostButton {
+  border-color: #827397;
+  background-color: transparent;
+  color: #827397;
+}
+
+.ghostButton:hover,
+.ghostButton:focus {
+  border-color: #827397;
+  background-color: #8273972a;
+  color: #827397;
+}

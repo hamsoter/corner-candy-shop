@@ -7,6 +7,8 @@ import {
   SmileOutlined,
 } from "@ant-design/icons";
 
+import btnStyles from "../../../utils/buttons.module.css";
+
 function UserCardBlock({
   products,
   removeItem,
@@ -45,10 +47,14 @@ function UserCardBlock({
   const showDeleteConfirm = (removeId, item) =>
     confirm({
       title: "이 꿈들을 몽땅 지울까요?",
-      icon: <ExclamationCircleOutlined />,
-      okText: "Yes",
+      icon: <ExclamationCircleOutlined style={{ color: "#E8C07D" }} />,
+      okText: "녜",
+      okButtonProps: { className: btnStyles.button },
+      cancelButtonProps: { className: btnStyles.ghostButton },
       okType: "danger",
-      cancelText: "No",
+      autoFocusButton: null,
+      cancelText: "아뇨",
+      maskClosable: true,
       onOk() {
         removeItem(removeId, item, removeAction);
       },
