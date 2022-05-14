@@ -6,6 +6,7 @@ import ProductCard from "./ProductCard";
 import CheckBox from "./Sections/CheckBox";
 
 import { genres } from "./Sections/Datas";
+import MainCarousel from "../../utils/MainCarousel";
 import PriceSlider from "./Sections/PriceSlider";
 import SearchFeature from "./Sections/SearchFeature";
 
@@ -113,7 +114,9 @@ function LandingPage() {
 
   return (
     <main className={styles.main}>
-      <div className={styles.center}>text</div>
+      <div className={styles.center}>
+        <MainCarousel></MainCarousel>
+      </div>
 
       {/* filter */}
 
