@@ -120,8 +120,6 @@ export function removeCartItem(productId) {
 }
 
 export function onSuccessBuy(data) {
-  console.log(data);
-  console.log("데이터인데요..");
   const request = axios
     .post(`/api/users/successBuy`, data)
     .then((res) => res.data);

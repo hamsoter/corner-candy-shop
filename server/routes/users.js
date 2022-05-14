@@ -88,11 +88,8 @@ router.post("/addToCart", auth, (req, res) => {
       }
     });
 
-    console.log("새슈량!!!!", req.body.newQuantity);
-
     // 수량변경
     if (quantityChange) {
-      console.log(req.body.productId);
       User.findOneAndUpdate(
         {
           // 유저를 먼저 찾은 후 카트안의 중복 아이템을 잡아냄
@@ -108,7 +105,6 @@ router.post("/addToCart", auth, (req, res) => {
         { new: true },
         // 프론트에 전송
         (err, userInfo) => {
-          console.log(userInfo);
           if (err) return res.status(400).json({ success: false, err });
           res.status(200).send(userInfo.cart);
         }
@@ -208,8 +204,6 @@ router.post("/successBuy", auth, (req, res) => {
 
   // 0. 넣어줄 데아터 생성
 
-  console.log(req.body.selectDetail);
-
   // 간단한 결제 정보 (history)
   req.body.selectDetail.forEach((item) => {
     history.push({
@@ -251,7 +245,6 @@ router.post("/successBuy", auth, (req, res) => {
       payment.save((err, doc) => {
         if (err) return res.json({ success: false, err });
 
-        console.log(doc);
         // 3. Product Collection 안에 있는 sold 필드 정보 업데이트 시키기
         // 몇개의 상품이 팔렸는지 저장해주기
 
@@ -264,7 +257,6 @@ router.post("/successBuy", auth, (req, res) => {
         // first Item   quantity 2
         // second Item  quantity 3
         // ...
-
         // 내가 구매한 상품 하나하나를 전부 컨트롤
         async.eachSeries(
           products,

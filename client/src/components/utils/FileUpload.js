@@ -14,8 +14,6 @@ function FileUpload({ refreshFunction }) {
 
   const { info } = Modal;
 
-  console.log(btnStyles);
-
   const showConfirmModal = () =>
     info({
       title: "잠깐만요!",
@@ -37,8 +35,6 @@ function FileUpload({ refreshFunction }) {
 
   const onDrop = useCallback((acceptedFiles, fileRejections) => {
     let formData = new FormData();
-
-    console.log();
 
     if (acceptedFiles.length === 1) {
       // Backend로 보내는 req 정보

@@ -119,7 +119,6 @@ router.get("/product_by_id", (req, res) => {
     });
   }
 
-  console.log(productIds);
   // productId를 기반으로 찾은 아이템(들)을 반환
   Product.find({ _id: { $in: productIds } })
     .populate("writer")

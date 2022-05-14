@@ -58,23 +58,19 @@ function UserCardBlock({
       onOk() {
         removeItem(removeId, item, removeAction);
       },
-      onCancel() {
-        console.log("Cancel");
-      },
+      onCancel() {},
     });
 
   // 지울시 selected key 목록 초기화
   const removeAction = (index) => {
     const restKeys = selectedRowKeys;
     restKeys.splice(index, 1);
-    console.log("rest", restKeys);
 
     setSelectedRowKeys(restKeys);
     selectHandler(restKeys);
   };
 
   const onSelectChange = (items) => {
-    console.log(items);
     selectHandler(items);
     setSelectedRowKeys(items);
   };

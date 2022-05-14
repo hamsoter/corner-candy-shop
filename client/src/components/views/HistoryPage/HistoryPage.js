@@ -31,13 +31,11 @@ function HistoryPage({ user }) {
   const arr =
     user.userData &&
     user.userData.history.map((item, index) => {
-      console.log();
       const body = {
         ...item,
         key: index,
         dateOfPurchase: new Date(item.dateOfPurchase).toLocaleDateString(),
       };
-      console.log(body);
       return body;
     });
 

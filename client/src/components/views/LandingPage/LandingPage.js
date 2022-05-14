@@ -1,4 +1,4 @@
-import { Col, Row } from "antd";
+import { Button, Col, Row } from "antd";
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import styles from "./LandingPage.module.css";
@@ -154,7 +154,7 @@ function LandingPage() {
       </Row>
       {postSize >= limit && (
         <div className={styles.center}>
-          <button onClick={loadMoreHandler}>더보기</button>
+          <Button onClick={loadMoreHandler}>더보기</Button>
         </div>
       )}
     </main>
