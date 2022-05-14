@@ -13,7 +13,7 @@ function LandingPage() {
   const [products, setProducts] = useState([]);
   const [skip, setSkip] = useState(0);
   // 한번에 불러올 데이터양
-  const [limit, setLimit] = useState(12);
+  const [limit, setLimit] = useState(2);
   const [postSize, setPostSize] = useState(0);
 
   // 필터 정보를 저장
@@ -31,6 +31,7 @@ function LandingPage() {
       skip: newSkip,
       limit: limit,
       loadMore: true,
+      filters: filters,
     };
     fetchData(body);
 
