@@ -20,14 +20,17 @@ function PriceSlider({ handleFilters }) {
     100: "$100",
     150: "$150",
     200: "$200",
-    250: "$150",
+    250: "$250",
     300: "$300",
   };
 
   return (
-    <Collapse defaultActiveKey={["2"]}>
+    <Collapse defaultActiveKey={["2"]} bordered={false}>
       <Panel header="가격" key="2">
-        <Row style={{ display: "flex", justifyContent: "center" }}>
+        <Row
+          style={{ display: "flex", justifyContent: "center" }}
+          className="collapse-row"
+        >
           <Col lg={{ span: 20 }} xs={{ span: 22 }}>
             <Slider
               range

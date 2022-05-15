@@ -1,0 +1,72 @@
+.ant-collapse-header {
+  background-color: #827397;
+  color: white !important;
+}
+
+.ant-collapse-content-box {
+  border: 1px solid #e9d5da;
+  background-color: white;
+}
+
+.ant-collapse-borderless > .ant-collapse-item {
+  border-bottom: 1px solid #e9d5da !important;
+}
+
+.ant-collapse-content-box {
+  border-bottom: 0;
+}
+
+.ant-collapse-item {
+  border-radius: 0.5rem !important;
+  overflow: hidden;
+}
+
+.collapse-row {
+  padding-top: 12px;
+}
+
+/* tags */
+
+.ant-tag-checkable {
+  color: #827397 !important;
+  border-color: #dfbfcd !important;
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.ant-tag-checkable-checked {
+  color: white !important;
+  background: #b97a95 !important;
+  border-color: #b97a95 !important;
+}
+.ant-tag-checkable:active {
+  color: white !important;
+  background: #b97a95 !important;
+  border-color: #b97a95 !important;
+}
+
+/* slider */
+
+.ant-slider-track {
+  background-color: #dfbfcd !important;
+}
+
+.ant-slider-handle {
+  border: solid 2px #b97a95c2 !important;
+}
+
+.ant-slider-dot-active {
+  border-color: #b97a95c2 !important;
+}
+
+.ant-slider-mark-text {
+  color: lightgray !important;
+}
+
+.ant-slider-mark-text-active {
+  color: #827397 !important;
+  font-weight: 500;
+}

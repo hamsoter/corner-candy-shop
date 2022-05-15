@@ -1,6 +1,7 @@
 import { Checkbox, Col, Collapse, Row } from "antd";
 import CheckableTag from "antd/lib/tag/CheckableTag";
 import React, { useState } from "react";
+import "./Collapse.css";
 
 const { Panel } = Collapse;
 
@@ -40,6 +41,7 @@ function CheckBox({ list, handleFilters }) {
           <CheckableTag
             style={{ border: `1px solid lightgrey` }}
             key={index}
+            className={item.key}
             onChange={(e) => {
               handleToggle(item.key);
             }}
@@ -57,9 +59,10 @@ function CheckBox({ list, handleFilters }) {
   };
 
   return (
-    <Collapse defaultActiveKey={["1"]}>
-      <Panel header="장르" key="1">
+    <Collapse defaultActiveKey={["1"]} bordered={false}>
+      <Panel header="장르" key="1" style={{}}>
         <Row
+          className="collapse-row"
           style={{
             display: "flex",
             justifyContent: "center",

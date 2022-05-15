@@ -12,7 +12,12 @@ function SearchFeature({ refreshFunction, searchTerm }) {
     <Search
       placeholder="input search text"
       allowClear
-      style={{ width: "250px" }}
+      style={{
+        width: "250px",
+        margin: "1rem 0",
+        display: "flex",
+        alignSelf: "flex-end",
+      }}
       onChange={searchHandler}
       value={searchTerm}
     />

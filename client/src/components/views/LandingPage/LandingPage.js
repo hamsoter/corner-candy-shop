@@ -14,7 +14,7 @@ function LandingPage() {
   const [products, setProducts] = useState([]);
   const [skip, setSkip] = useState(0);
   // 한번에 불러올 데이터양
-  const [limit, setLimit] = useState(2);
+  const [limit, setLimit] = useState(8);
   const [postSize, setPostSize] = useState(0);
 
   // 필터 정보를 저장
@@ -114,14 +114,25 @@ function LandingPage() {
 
   return (
     <main className={styles.main}>
-      <div className={styles.center}>
-        <MainCarousel></MainCarousel>
-      </div>
+      <MainCarousel></MainCarousel>
+      <div className={styles.center}></div>
 
       {/* filter */}
 
-      <Row gtter={[16, 16]} style={{ margin: 0 }}>
-        <Col lg={12} xs={24}>
+      <Row
+        gtter={[16, 16]}
+        style={{
+          margin: 0,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Col
+          lg={24}
+          xs={24}
+          style={{ marginBottom: "1rem", marginTop: "0.5rem" }}
+        >
           <CheckBox
             list={genres}
             handleFilters={(filters) => {
@@ -129,7 +140,7 @@ function LandingPage() {
             }}
           ></CheckBox>
         </Col>
-        <Col lg={12} xs={24}>
+        <Col lg={24} xs={24}>
           <PriceSlider
             handleFilters={(filters) => {
               handleFilters(filters, "price");
@@ -152,7 +163,7 @@ function LandingPage() {
 
       {/* items */}
 
-      <Row gutter={[16, 16]} style={{ margin: 0 }}>
+      <Row gutter={[16, 16]} style={{ margin: "-8px" }}>
         {productCards}
       </Row>
       {postSize >= limit && (
