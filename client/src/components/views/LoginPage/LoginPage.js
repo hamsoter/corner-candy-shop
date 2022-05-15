@@ -83,11 +83,11 @@ function LoginPage(props) {
           handleReset,
         } = props;
         return (
-          <div className="app">
+          <div className="app" style={{ padding: "1rem" }}>
             <Title level={2} className={styles.title}>
               모퉁이 꿈 공방
             </Title>
-            <form onSubmit={handleSubmit} style={{ width: "350px" }}>
+            <form onSubmit={handleSubmit} style={{ maxWidth: "350px" }}>
               <Form.Item required className={styles.input}>
                 <Input
                   id="email"
