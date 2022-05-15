@@ -1,0 +1,33 @@
+@font-face {
+  font-family: "Hahmlet-SemiBold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/Hahmlet-SemiBold.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.title {
+  font-family: "Hahmlet-SemiBold";
+  color: #392b53 !important;
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  margin-bottom: 2rem !important;
+}
+
+.input {
+}
+
+.input {
+  margin-bottom: 0;
+}
+
+.feedback {
+  height: 12px !important;
+}
+
+.control {
+  margin-top: 1.3rem !important;
+}

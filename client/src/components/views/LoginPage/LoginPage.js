@@ -6,6 +6,8 @@ import * as Yup from "yup";
 import { Form, Icon, Input, Button, Checkbox, Typography } from "antd";
 import { useDispatch } from "react-redux";
 
+import styles from "./loginPage.module.css";
+
 const { Title } = Typography;
 
 function LoginPage(props) {
@@ -31,11 +33,11 @@ function LoginPage(props) {
       }}
       validationSchema={Yup.object().shape({
         email: Yup.string()
-          .email("Email is invalid")
-          .required("Email is required"),
+          .email("해당 아이디의 회원을 찾을 수 없어요!")
+          .required("아이디를 입력하세요!"),
         password: Yup.string()
-          .min(6, "Password must be at least 6 characters")
-          .required("Password is required"),
+          .min(6, "비밀번호는 6자리 이상입니다!")
+          .required("비밀번호를 입력하세요!"),
       })}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
@@ -55,11 +57,11 @@ function LoginPage(props) {
                 }
                 props.history.push("/");
               } else {
-                setFormErrorMessage("Check out your Account or Password again");
+                setFormErrorMessage("아이디나 비밀번호를 다시 확인해보세요!");
               }
             })
             .catch((err) => {
-              setFormErrorMessage("Check out your Account or Password again");
+              setFormErrorMessage("아이디나 비밀번호를 다시 확인해보세요!");
               setTimeout(() => {
                 setFormErrorMessage("");
               }, 3000);
@@ -82,15 +84,17 @@ function LoginPage(props) {
         } = props;
         return (
           <div className="app">
-            <Title level={2}>Log In</Title>
+            <Title level={2} className={styles.title}>
+              모퉁이 꿈 공방
+            </Title>
             <form onSubmit={handleSubmit} style={{ width: "350px" }}>
-              <Form.Item required>
+              <Form.Item required className={styles.input}>
                 <Input
                   id="email"
                   prefix={
                     <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
                   }
-                  placeholder="Enter your email"
+                  placeholder="이메일"
                   type="email"
                   value={values.email}
                   onChange={handleChange}
@@ -102,17 +106,19 @@ function LoginPage(props) {
                   }
                 />
                 {errors.email && touched.email && (
-                  <div className="input-feedback">{errors.email}</div>
+                  <div className={`input-feedback ${styles.feedback}`}>
+                    {errors.email}
+                  </div>
                 )}
               </Form.Item>
 
-              <Form.Item required>
+              <Form.Item required className={styles.input}>
                 <Input
                   id="password"
                   prefix={
                     <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
                   }
-                  placeholder="Enter your password"
+                  placeholder="비밀번호"
                   type="password"
                   value={values.password}
                   onChange={handleChange}
@@ -124,7 +130,9 @@ function LoginPage(props) {
                   }
                 />
                 {errors.password && touched.password && (
-                  <div className="input-feedback">{errors.password}</div>
+                  <div className={`input-feedback ${styles.feedback}`}>
+                    {errors.password}
+                  </div>
                 )}
               </Form.Item>
 
@@ -144,34 +152,32 @@ function LoginPage(props) {
                 </label>
               )}
 
-              <Form.Item>
+              <Form.Item className={styles.control}>
                 <Checkbox
                   id="rememberMe"
                   onChange={handleRememberMe}
                   checked={rememberMe}
                 >
-                  Remember me
+                  아이디 기억하기
                 </Checkbox>
-                <a
-                  className="login-form-forgot"
-                  href="/reset_user"
-                  style={{ float: "right" }}
-                >
-                  forgot password
-                </a>
                 <div>
                   <Button
                     type="primary"
                     htmlType="submit"
                     className="login-form-button"
-                    style={{ minWidth: "100%" }}
+                    style={{
+                      minWidth: "100%",
+                      backgroundColor: "#827397",
+                      border: "1px solid #827397",
+                    }}
                     disabled={isSubmitting}
                     onSubmit={handleSubmit}
                   >
-                    Log in
+                    로그인
                   </Button>
                 </div>
-                Or <a href="/register">register now!</a>
+                잠깐, 아직 회원이 아닌가요?
+                <a href="/register"> 회원이 되세요!</a>
               </Form.Item>
             </form>
           </div>
