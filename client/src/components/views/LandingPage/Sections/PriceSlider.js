@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Slider, InputNumber, Row, Col, Collapse } from "antd";
+import { Slider, Row, Col, Collapse } from "antd";
 
-const { Panel } = Collapse;
+import styles from "./col.module.css";
 
 function PriceSlider({ handleFilters }) {
   const [price, setPrice] = useState([0, 300]);
@@ -25,26 +25,26 @@ function PriceSlider({ handleFilters }) {
   };
 
   return (
-    <Collapse defaultActiveKey={["2"]} bordered={false}>
-      <Panel header="가격" key="2">
-        <Row
-          style={{ display: "flex", justifyContent: "center" }}
-          className="collapse-row"
-        >
+    <div className={`${styles.right} ${styles.box}`}>
+      <h3>가격</h3>
+      <div>
+        <Row className={`collapse-row right ${styles.row}`}>
           <Col lg={{ span: 20 }} xs={{ span: 22 }}>
-            <Slider
-              range
-              min={0}
-              max={300}
-              marks={marks}
-              step={10}
-              defaultValue={[0, 300]}
-              onChange={onChangeHandler}
-            />
+            <div>
+              <Slider
+                range
+                min={0}
+                max={300}
+                marks={marks}
+                step={10}
+                defaultValue={[0, 300]}
+                onChange={onChangeHandler}
+              />
+            </div>
           </Col>
         </Row>
-      </Panel>
-    </Collapse>
+      </div>
+    </div>
   );
 }
 

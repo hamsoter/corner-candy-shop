@@ -1,7 +1,8 @@
 import { Checkbox, Col, Collapse, Row } from "antd";
 import CheckableTag from "antd/lib/tag/CheckableTag";
 import React, { useState } from "react";
-import "./Collapse.css";
+
+import styles from "./col.module.css";
 
 const { Panel } = Collapse;
 
@@ -59,29 +60,22 @@ function CheckBox({ list, handleFilters }) {
   };
 
   return (
-    <Collapse defaultActiveKey={["1"]} bordered={false}>
-      <Panel header="장르" key="1" style={{}}>
+    <div className={`${styles.left} ${styles.box}`}>
+      <h3>장르</h3>
+      <div>
         <Row
-          className="collapse-row"
+          className={`collapse-row right ${styles.row}`}
           style={{
             display: "flex",
             justifyContent: "center",
           }}
         >
-          <Col
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              flexWrap: "wrap",
-            }}
-            lg={{ span: 20 }}
-            xs={{ span: 22 }}
-          >
+          <Col className={styles.col} lg={{ span: 20 }} xs={{ span: 22 }}>
             {renderCheckboxLists()}
           </Col>
         </Row>
-      </Panel>
-    </Collapse>
+      </div>
+    </div>
   );
 }
 

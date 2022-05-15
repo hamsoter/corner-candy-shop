@@ -1,4 +1,4 @@
-import { Button, Col, Row } from "antd";
+import { Button, Col, Divider, Row } from "antd";
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import styles from "./LandingPage.module.css";
@@ -9,6 +9,8 @@ import { genres } from "./Sections/Datas";
 import MainCarousel from "../../utils/MainCarousel";
 import PriceSlider from "./Sections/PriceSlider";
 import SearchFeature from "./Sections/SearchFeature";
+
+import "./Sections/LandingPageCustom.css";
 
 function LandingPage() {
   const [products, setProducts] = useState([]);
@@ -123,16 +125,10 @@ function LandingPage() {
         gtter={[16, 16]}
         style={{
           margin: 0,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
         }}
       >
-        <Col
-          lg={24}
-          xs={24}
-          style={{ marginBottom: "1rem", marginTop: "0.5rem" }}
-        >
+        <Divider>어떤 꿈을 꿀까요?</Divider>
+        <Col lg={12} xs={24} style={{}}>
           <CheckBox
             list={genres}
             handleFilters={(filters) => {
@@ -140,22 +136,16 @@ function LandingPage() {
             }}
           ></CheckBox>
         </Col>
-        <Col lg={24} xs={24}>
+        <Col lg={12} xs={24}>
           <PriceSlider
             handleFilters={(filters) => {
               handleFilters(filters, "price");
             }}
           ></PriceSlider>
         </Col>
-        <Col
-          lg={24}
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-          }}
-        ></Col>
       </Row>
       {/* search */}
+      <Divider>이런 꿈이 있어요</Divider>
       <SearchFeature
         searchTerm={searchTerm}
         refreshFunction={updateSearchTerm}
@@ -163,7 +153,11 @@ function LandingPage() {
 
       {/* items */}
 
-      <Row gutter={[16, 16]} style={{ margin: "-8px" }}>
+      <Row
+        gutter={[16, 16]}
+        className={styles.mainRow}
+        style={{ margin: "-8px" }}
+      >
         {productCards}
       </Row>
       {postSize >= limit && (

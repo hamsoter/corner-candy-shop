@@ -64,8 +64,8 @@
   padding: 6px;
   margin-top: 10px;
   display: none !important; /* use of important to overwrite ant-btn */
-  background: #4d4c7d;
-  border-color: #4d4c7d;
+  background: #827397;
+  border-color: #827397;
 }
 
 .menu__mobile-button:active,
@@ -105,4 +105,37 @@
   .menu__logo a {
     padding: 10px 20px 12px 20px;
   }
+}
+
+/* menu hover */
+
+.ant-menu-horizontal > .ant-menu-item:hover,
+.ant-menu-horizontal > .ant-menu-submenu:hover,
+.ant-menu-horizontal > .ant-menu-item-active,
+.ant-menu-horizontal > .ant-menu-submenu-active,
+.ant-menu-horizontal > .ant-menu-item-open,
+.ant-menu-horizontal > .ant-menu-submenu-open,
+.ant-menu-horizontal > .ant-menu-item-selected,
+.ant-menu-horizontal > .ant-menu-submenu-selected {
+  border-bottom: 2px solid #827397;
+}
+.ant-menu-horizontal > .ant-menu-item > a:hover {
+  color: #363062;
+}
+
+.ant-menu-item {
+  margin: 0 !important;
+}
+
+.ant-menu-item:hover {
+  background-color: #e6e5eba1;
+}
+
+.ant-menu-item > a {
+  color: #716f81;
+  font-weight: 500;
+}
+
+.ant-menu-item > a:hover {
+  color: #363062;
 }

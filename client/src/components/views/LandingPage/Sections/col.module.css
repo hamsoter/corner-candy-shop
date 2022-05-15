@@ -1,0 +1,66 @@
+.box {
+  /* background-color: red; */
+  /* padding: 1rem; */
+  border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+  border: 1px solid rgb(0, 0, 0, 0.1);
+  overflow: hidden;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+}
+
+.left {
+  margin-right: 0.5rem;
+}
+
+.right {
+  margin-left: 0.5rem;
+}
+
+.box > h3 {
+  text-align: center;
+  color: #363062;
+  font-family: "GowunDodum-Regular" !important;
+  font-weight: bold;
+  padding: 1rem;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+.col {
+  display: flex !important;
+  justify-content: center !important;
+
+  flex-wrap: wrap !important;
+  margin-bottom: 1rem;
+}
+
+.row {
+  display: flex !important;
+  justify-content: center !important;
+  padding: 0 1rem;
+}
+
+/* 반응형 */
+
+@media (max-width: 992px) {
+  .left {
+    margin-right: 0;
+  }
+
+  .right {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .left {
+    margin: 1rem;
+  }
+
+  .right {
+    margin: 1rem;
+  }
+}

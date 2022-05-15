@@ -7,6 +7,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body::-webkit-scrollbar {
+  width: 4px;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #e9d5da;
+  border-radius: 10px;
+  background-clip: padding-box;
+}
+body::-webkit-scrollbar-track {
+  background-color: transparent;
+  margin-top: 68px;
+  border-radius: 10px;
+}
+
 * {
   box-sizing: border-box;
 }

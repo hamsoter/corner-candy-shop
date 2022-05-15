@@ -4,19 +4,24 @@ import React from "react";
 import styles from "./LandingPage.module.css";
 
 function ProductCard({ thumbSrc, price, title }) {
+  const src = thumbSrc.replaceAll("\\", "/");
   return (
     <Col lg={6} md={8} xs={12}>
       <Card
         style={{
-          borderColor: "#E9D5DA",
           boxSizing: "border-box",
+          boxShadow: "rgba(0, 0, 0, 0.1) 0px 1px 1px",
+          overflow: "hidden",
+          borderRadius: "0.2rem",
         }}
         cover={
           thumbSrc ? (
-            <img
+            <div
               className={styles.thumbnail}
-              src={`http://localhost:5000/${thumbSrc}`}
-            ></img>
+              style={{
+                backgroundImage: `url(http://localhost:5000/${src})`,
+              }}
+            ></div>
           ) : (
             <div className={styles.noThumbnail}> </div>
           )

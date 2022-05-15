@@ -257,3 +257,13 @@
   transform: rotate(-20deg);
   border: 1px solid white;
 }
+
+@media (max-width: 767px) {
+  .content {
+    transform: scale(0.8);
+    right: 1rem;
+    bottom: 7rem;
+    padding: 0.5rem 1rem;
+    width: 10rem;
+  }
+}

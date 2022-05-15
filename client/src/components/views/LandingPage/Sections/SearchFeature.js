@@ -10,10 +10,10 @@ function SearchFeature({ refreshFunction, searchTerm }) {
 
   return (
     <Search
-      placeholder="input search text"
+      placeholder="꿈 이름, 설명을 검색"
       allowClear
       style={{
-        width: "250px",
+        maxWidth: "223px",
         margin: "1rem 0",
         display: "flex",
         alignSelf: "flex-end",

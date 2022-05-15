@@ -1,0 +1,128 @@
+@font-face {
+  font-family: "GowunDodum-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+
+* {
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+    "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
+    "Malgun Gothic", sans-serif;
+}
+
+.ant-divider-inner-text {
+  font-family: "GowunDodum-Regular";
+  font-weight: bold;
+  color: #716f81;
+}
+
+.ant-collapse-header {
+  background-color: #827397;
+  color: white !important;
+}
+
+.ant-collapse-content-box {
+  border: 1px solid #e9d5da;
+  background-color: white;
+}
+
+.ant-collapse-borderless > .ant-collapse-item {
+  border-bottom: 1px solid #e9d5da !important;
+}
+
+.ant-collapse-content-box {
+  border-bottom: 0;
+}
+
+.ant-collapse-item {
+  border-radius: 0.5rem !important;
+  overflow: hidden;
+}
+
+/* tags */
+
+.ant-tag-checkable {
+  color: #716f81 !important;
+  border-color: #dfbfcd !important;
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  margin-bottom: 0.5rem !important;
+}
+
+.ant-tag-checkable-checked {
+  color: white !important;
+  background: #b97a95 !important;
+  border-color: #b97a95 !important;
+}
+.ant-tag-checkable:active {
+  color: white !important;
+  background: #b97a95 !important;
+  border-color: #b97a95 !important;
+}
+
+/* slider */
+
+.ant-slider-track {
+  background-color: #dfbfcd !important;
+}
+
+.ant-slider-handle {
+  border: solid 2px #b97a95c2 !important;
+}
+
+.ant-slider-dot-active {
+  border-color: #b97a95c2 !important;
+}
+
+.ant-slider-mark-text {
+  color: lightgray !important;
+}
+
+.ant-slider-mark-text-active {
+  color: #827397 !important;
+  font-weight: 500;
+}
+
+.ant-card-cover {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+}
+
+.ant-card-cover > div {
+  width: 100%;
+  height: 0;
+  padding-top: 61.8%;
+  /* background-image: url("https://toastlog.com/img/logos/cssscan.svg") !important; */
+  background-size: cover;
+}
+
+/* search */
+.ant-input:focus {
+  border-color: #b97a95 !important;
+  box-shadow: 0 0 0 2px #b97a952d !important;
+}
+
+.ant-input-affix-wrapper {
+  align-self: flex-end !important;
+}
+
+@media (max-width: 767px) {
+  .ant-input-affix-wrapper {
+    margin-right: 1rem !important;
+  }
+
+  .ant-slider-mark-text {
+    font-size: 12px;
+  }
+
+  .ant-input-affix-wrapper {
+    align-self: center !important;
+  }
+}
