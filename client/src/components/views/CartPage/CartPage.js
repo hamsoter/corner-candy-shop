@@ -1,5 +1,5 @@
 import { ShoppingOutlined } from "@ant-design/icons";
-import { Result } from "antd";
+import { Divider, Result } from "antd";
 import React, { useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
@@ -179,16 +179,19 @@ function CartPage({ user, history }) {
           quantityChange={productQuantityChange}
         ></UserCardBlock>
       </div>
-      <div>
-        <h2>합계: $ {totalPrice.toLocaleString()}</h2>
-      </div>
-      {showPay && (
-        <Paypal
-          payBtnControl={payBtnControl}
-          price={totalPrice}
-          showPay={showPay}
-          onSuccess={transactionSuccess}
-        ></Paypal>
+      <Divider>계산</Divider>
+      <h2 style={{ marginBottom: "2rem" }}>
+        합계: $ {totalPrice.toLocaleString()}
+      </h2>
+      {showPay && totalPrice > 0 && (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Paypal
+            payBtnControl={payBtnControl}
+            price={totalPrice}
+            showPay={showPay}
+            onSuccess={transactionSuccess}
+          />
+        </div>
       )}
     </main>
   );

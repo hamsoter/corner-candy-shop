@@ -10,9 +10,14 @@ import MainCarousel from "../../utils/MainCarousel";
 import PriceSlider from "./Sections/PriceSlider";
 import SearchFeature from "./Sections/SearchFeature";
 
-import "./Sections/LandingPageCustom.css";
+import { withCookies } from "react-cookie";
 
-function LandingPage() {
+import "./Sections/LandingPageCustom.css";
+import Popup from "../../utils/Popup";
+import PopupDC from "../../../cookie/PopupDC";
+import moment from "moment";
+
+function LandingPage(props) {
   const [products, setProducts] = useState([]);
   const [skip, setSkip] = useState(0);
   // 한번에 불러올 데이터양
@@ -26,6 +31,27 @@ function LandingPage() {
   });
 
   const [searchTerm, setSearchTerm] = useState("");
+
+  // 팝업 쿠키
+  const [cookies, setCookies] = useState(props.cookies);
+  const [hasCookies, setHasCookies] = useState(false);
+  const [showPopUp, setShowPopUp] = useState(false);
+
+  const closePopup = (selCheck) => {
+    if (cookies) {
+      if (selCheck) {
+        const expires = moment().add(1, "day").toDate();
+        cookies.set(PopupDC.COOKIE_VALUE, true, { path: "/", expires });
+      }
+    }
+    setShowPopUp(false);
+  };
+
+  const removeCookies = () => {
+    if (cookies) {
+      cookies.remove(PopupDC.COOKIE_VALUE);
+    }
+  };
 
   const loadMoreHandler = () => {
     let newSkip = skip + limit;
@@ -100,7 +126,17 @@ function LandingPage() {
     };
 
     fetchData(body);
-  }, []);
+
+    // 쿠키
+    if (props.cookies) {
+      const currentCookies = cookies.get(PopupDC.COOKIE_VALUE);
+
+      setShowPopUp(!currentCookies);
+      setHasCookies(!!currentCookies);
+    } else {
+      setCookies(props.cookies);
+    }
+  }, [props.cookies]);
 
   const productCards = products.map((item, index) => {
     return (
@@ -113,6 +149,8 @@ function LandingPage() {
       </a>
     );
   });
+
+  console.log(showPopUp);
 
   return (
     <main className={styles.main}>
@@ -167,8 +205,18 @@ function LandingPage() {
           </Button>
         </div>
       )}
+
+      {showPopUp && cookies ? (
+        <Popup
+          flag={showPopUp}
+          closePopup={closePopup}
+          removeCookie={removeCookies}
+        />
+      ) : null}
+
+      {hasCookies ? <button onClick={removeCookies}>쿠키지우기</button> : null}
     </main>
   );
 }
 
-export default LandingPage;
+export default withCookies(LandingPage);

@@ -110,7 +110,7 @@ function FileUpload({ refreshFunction }) {
               ></img>
 
               {/* 파일을 드래그 했을시 */}
-              {!isDragActive ? (
+              {isDragActive ? (
                 <>
                   <div
                     className={`${styles.overlay} ${styles.reDrag}`}

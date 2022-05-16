@@ -57,7 +57,6 @@ const PayPal = (props) => {
           onCancel={onCancel}
           style={{
             size: "large",
-            color: "blue",
             label: "checkout",
           }}
         />
