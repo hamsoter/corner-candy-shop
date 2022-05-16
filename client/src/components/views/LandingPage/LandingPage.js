@@ -21,7 +21,7 @@ function LandingPage(props) {
   const [products, setProducts] = useState([]);
   const [skip, setSkip] = useState(0);
   // 한번에 불러올 데이터양
-  const [limit, setLimit] = useState(8);
+  const [limit, setLimit] = useState(12);
   const [postSize, setPostSize] = useState(0);
 
   // 필터 정보를 저장
@@ -183,7 +183,7 @@ function LandingPage(props) {
         </Col>
       </Row>
       {/* search */}
-      <Divider>이런 꿈이 있어요</Divider>
+      <Divider>이런 꿈들이 있어요</Divider>
       <SearchFeature
         searchTerm={searchTerm}
         refreshFunction={updateSearchTerm}
@@ -198,12 +198,27 @@ function LandingPage(props) {
       >
         {productCards}
       </Row>
-      {postSize >= limit && (
+      {postSize >= limit ? (
         <div className={styles.center}>
-          <Button onClick={loadMoreHandler} style={{ marginTop: "1rem" }}>
+          <Button
+            onClick={loadMoreHandler}
+            style={{
+              marginTop: "1rem",
+              backgroundColor: "#827397",
+              borderColor: "#827397",
+              color: "white",
+            }}
+          >
             더 가져와!!!
           </Button>
         </div>
+      ) : (
+        <Divider style={{ fontSize: "14px" }}>
+          더 불러올 꿈이 없네요...{" "}
+          <a href="/product/upload" style={{ fontWeight: "normal" }}>
+            직접 올려보는 건?
+          </a>
+        </Divider>
       )}
 
       {showPopUp && cookies ? (
@@ -214,7 +229,7 @@ function LandingPage(props) {
         />
       ) : null}
 
-      {hasCookies ? <button onClick={removeCookies}>쿠키지우기</button> : null}
+      {/* {hasCookies ? <button onClick={removeCookies}>쿠키지우기</button> : null} */}
     </main>
   );
 }
