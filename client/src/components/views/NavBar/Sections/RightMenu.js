@@ -20,18 +20,7 @@ function RightMenu(props) {
     });
   };
 
-  if (user.userData && !user.userData.isAuth) {
-    return (
-      <Menu mode={props.mode}>
-        <Menu.Item key="mail">
-          <a href="/login">로그인</a>
-        </Menu.Item>
-        <Menu.Item key="app">
-          <a href="/register">가입</a>
-        </Menu.Item>
-      </Menu>
-    );
-  } else {
+  if (user.userData && user.userData.isAuth) {
     return (
       <Menu mode={props.mode}>
         <Menu.Item key="history">
@@ -58,6 +47,17 @@ function RightMenu(props) {
               />
             </a>
           </Badge>
+        </Menu.Item>
+      </Menu>
+    );
+  } else {
+    return (
+      <Menu mode={props.mode}>
+        <Menu.Item key="mail">
+          <a href="/login">로그인</a>
+        </Menu.Item>
+        <Menu.Item key="app">
+          <a href="/register">가입</a>
         </Menu.Item>
       </Menu>
     );

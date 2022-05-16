@@ -26,7 +26,7 @@ function FileUpload({ refreshFunction }) {
       content: (
         <span>
           <strong>.jpg, .png 형식만 올릴 수 있습니다!</strong> (죄송)<br></br>
-          자세한 이야기는 꿈에서 해요!
+          자세한 이미지는 꿈에서 보여주세요!
         </span>
       ),
       onOk() {},
@@ -110,7 +110,7 @@ function FileUpload({ refreshFunction }) {
               ></img>
 
               {/* 파일을 드래그 했을시 */}
-              {isDragActive ? (
+              {!isDragActive ? (
                 <>
                   <div
                     className={`${styles.overlay} ${styles.reDrag}`}

@@ -1,3 +1,4 @@
+import { ShoppingOutlined } from "@ant-design/icons";
 import { Result } from "antd";
 import React, { useEffect, useState } from "react";
 
@@ -166,7 +167,10 @@ function CartPage({ user, history }) {
 
   return (
     <main>
-      <h1 style={{ marginLeft: " 1rem" }}>꿈바구니</h1>
+      <h1 style={{ marginTop: "3rem" }}>
+        꿈바구니
+        <ShoppingOutlined style={{ marginLeft: "0.5rem" }} />
+      </h1>
       <div>
         <UserCardBlock
           products={user.cartDetail}

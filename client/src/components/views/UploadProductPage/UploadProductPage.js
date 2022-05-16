@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Typography, Form, Input, Button } from "antd";
+import { Typography, Form, Input, Button, Divider } from "antd";
 import FileUpload from "../../utils/FileUpload";
 import Axios from "axios";
 import SizeSlider from "../../utils/SizeSlider";
@@ -78,7 +78,7 @@ function UploadProductPage({ user, history }) {
   };
 
   const submitHandler = () => {
-    if (!title || !description || price < 0 || !genre || !mood || !size) {
+    if (!title || !description || price < 1 || !genre || !mood || !size) {
       return alert("모든 값을 넣어주세요!");
     }
 
@@ -108,9 +108,11 @@ function UploadProductPage({ user, history }) {
   };
 
   return (
-    <div style={{ maxWidth: "700px", margin: "2rem auto" }}>
+    <main style={{ padding: "0 1rem" }}>
       <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-        <Title level={2}>꿈 올리기</Title>
+        <Title level={2} style={{ marginTop: "3rem" }}>
+          꿈 판매하기
+        </Title>
         <Title level={4}>누구나 꿈 작가가 될 수 있어요!</Title>
         <span>
           <b>모퉁이 꿈 공방</b>은 아마추어 꿈 제작자의 행보를 응원합니다!
@@ -120,14 +122,16 @@ function UploadProductPage({ user, history }) {
       <Form onSubmitCapture={submitHandler}>
         <FileUpload refreshFunction={upadateImage}></FileUpload>
 
+        <Divider style={{ marginBottom: "3rem" }}>자세한 소개</Divider>
         <article style={{ margin: "1rem 0" }}>
-          <label>꿈의 이름은?</label>
+          <label style={{ fontWeight: "bold" }}>꿈의 이름은?</label>
           <Input onChange={titleChangeHandler} value={title} />
         </article>
 
         <article style={{ margin: "1rem 0" }}>
-          <label>꿈의 장르는?</label>
+          <label style={{ fontWeight: "bold" }}>꿈의 장르는?</label>
           <select
+            style={{ margin: "0 0.5rem" }}
             onChange={(e) => selectHandler(e, setGenre)}
             value={genre.key}
           >
@@ -141,8 +145,12 @@ function UploadProductPage({ user, history }) {
         </article>
 
         <article style={{ margin: "1rem 0" }}>
-          <label>담긴 감정은</label>
-          <select onChange={(e) => selectHandler(e, setMood)} value={mood.key}>
+          <label style={{ fontWeight: "bold" }}>담긴 감정은</label>
+          <select
+            style={{ margin: "0 0.5rem" }}
+            onChange={(e) => selectHandler(e, setMood)}
+            value={mood.key}
+          >
             {moods.map((item) => (
               <option key={item.key} value={item.key}>
                 {item.value}
@@ -153,7 +161,7 @@ function UploadProductPage({ user, history }) {
         </article>
 
         <article style={{ margin: "1rem 0" }}>
-          <label>감정의 크기는?</label>
+          <label style={{ fontWeight: "bold" }}>감정의 크기는?</label>
 
           <SizeSlider setSize={setSize}></SizeSlider>
           {/* <select onChange={(e) => selectHandler(e, setSize)} value={size.key}>
@@ -166,7 +174,7 @@ function UploadProductPage({ user, history }) {
         </article>
 
         <article style={{ margin: "1rem 0" }}>
-          <label>자세한 이야기</label>
+          <label style={{ fontWeight: "bold" }}>이야기 소개...</label>
           <TextArea
             placeholder="어떤 꿈인지 간단히 들려주세요!"
             onChange={descriptionChangeHandler}
@@ -175,11 +183,12 @@ function UploadProductPage({ user, history }) {
         </article>
 
         <article style={{ margin: "1rem 0" }}>
-          <label>꿈의 가치($)</label>
+          <label style={{ fontWeight: "bold" }}>꿈의 가치($)</label>
+          <p>좋은 이야기에는 그만한 가치가 필요해요!</p>
           <Input
             type="number"
             onChange={priceChangeHandler}
-            min="0"
+            min="1"
             value={price}
           />
         </article>
@@ -187,7 +196,7 @@ function UploadProductPage({ user, history }) {
           <Button htmlType="submit">확인</Button>
         </article>
       </Form>
-    </div>
+    </main>
   );
 }
 

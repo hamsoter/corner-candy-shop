@@ -7,18 +7,23 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+::selection {
+  background-color: #e8c07d !important;
+  color: white !important;
+}
+
 body::-webkit-scrollbar {
-  width: 6px;
+  width: 14px;
 }
 body::-webkit-scrollbar-thumb {
   background-color: #e9d5da;
-  border-radius: 10px;
+  border-radius: 2px;
   background-clip: padding-box;
 }
 body::-webkit-scrollbar-track {
-  background-color: transparent;
+  background-color: #f0e6e886;
   margin-top: 68px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
 
 * {

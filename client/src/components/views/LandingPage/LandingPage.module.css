@@ -40,12 +40,13 @@ main {
   padding: 1.5rem;
   padding-top: 1rem;
   padding-bottom: 0.25rem;
-  white-space: nowrap;
-  overflow: hidden;
-  word-wrap: normal;
   color: #363062;
   font-weight: bolder;
   margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
 }
 
 .price {

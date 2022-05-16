@@ -128,7 +128,7 @@ function LandingPage() {
         }}
       >
         <Divider>어떤 꿈을 꿀까요?</Divider>
-        <Col lg={12} xs={24} style={{}}>
+        <Col lg={12} xs={24}>
           <CheckBox
             list={genres}
             handleFilters={(filters) => {
@@ -162,7 +162,9 @@ function LandingPage() {
       </Row>
       {postSize >= limit && (
         <div className={styles.center}>
-          <Button onClick={loadMoreHandler}>더보기</Button>
+          <Button onClick={loadMoreHandler} style={{ marginTop: "1rem" }}>
+            더 가져와!!!
+          </Button>
         </div>
       )}
     </main>

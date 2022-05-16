@@ -9,29 +9,28 @@ main {
 .thumbnailBox {
   display: flex;
   width: 100%;
-  height: 350px;
-  border-radius: 2px;
+  border-radius: 0.5rem;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   padding: 0;
+  border: 1px solid rgba(211, 211, 211, 0.548);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px;
 }
 
-.thumbnail {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
+.thumbnail,
 .noThumbnail {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid lightgray;
+  object-fit: cover;
+  background-position: center, center;
+  background-size: cover;
+  padding-top: 61.8%;
 }
 
 .noThumbnail > span {
@@ -44,8 +43,31 @@ main {
   margin-top: -12px;
 }
 
+/* info */
 .productInfoBox {
-  padding-left: 20px;
+  padding-left: 1rem;
+}
+
+.col {
+  display: flex;
+}
+
+.infoTitle {
+  font-weight: 500;
+  color: black;
+}
+
+.cartBtn {
+  margin-top: 1rem;
+}
+
+.label {
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.title {
+  margin: 3rem 0;
 }
 
 @media (max-width: 992px) {
@@ -53,25 +75,26 @@ main {
     width: 700px;
   }
 
+  .thumbnailBox {
+    margin-bottom: 1rem;
+  }
+
   .noThumbnail {
     width: 100%;
     height: 100%;
   }
-  .thumbnailBox {
-    height: 450px;
-    max-height: 450px;
+
+  .title {
+    padding: 1rem 0;
   }
 
   .productInfoBox {
-    height: 450px;
     max-height: 450px;
-    padding: 20px 0;
+    padding: 1rem 0;
+    overflow: hidden;
   }
-
-  .thumbnail {
-    height: 100%;
+  .cartBtn {
     width: 100%;
-    object-fit: contain;
   }
 }
 
@@ -81,24 +104,27 @@ main {
     width: 100%;
   }
 
-  .noThumbnail {
+  .title {
+    padding: 1rem;
+    padding-bottom: 0;
+  }
+
+  .noThumbnail,
+  .thumbnail {
     width: 100%;
     height: 0;
     padding-top: 61.8%;
-  }
-
-  .thumbnail {
-    width: 100%;
+    border-radius: 0.5rem;
   }
 
   .thumbnailBox {
     width: 100%;
-    height: auto;
-    max-height: 500px;
-    padding: 20px;
+    border-radius: 0.5rem;
+    overflow: hidden;
   }
+
   .productInfoBox {
-    padding: 20px;
+    padding: 1rem;
     padding-top: 0;
   }
 }

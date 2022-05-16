@@ -101,6 +101,7 @@
   padding-top: 61.8%;
   /* background-image: url("https://toastlog.com/img/logos/cssscan.svg") !important; */
   background-size: cover;
+  background-position: center center;
 }
 
 /* search */

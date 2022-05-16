@@ -105,6 +105,10 @@
   .menu__logo a {
     padding: 10px 20px 12px 20px;
   }
+
+  .menu {
+    background-color: #ffffff;
+  }
 }
 
 /* menu hover */

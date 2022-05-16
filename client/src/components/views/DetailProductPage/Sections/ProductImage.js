@@ -1,3 +1,4 @@
+import { Empty } from "antd";
 import React, { useEffect, useState } from "react";
 import styles from "./Product.module.css";
 
@@ -7,10 +8,10 @@ function ProductImage({ imgSrc }) {
   useEffect(() => {
     if (imgSrc) {
       setImg(
-        <img
+        <div
           className={styles.thumbnail}
-          src={`http://localhost:5000/${imgSrc}`}
-        ></img>
+          style={{ backgroundImage: `url("http://localhost:5000/${imgSrc}")` }}
+        ></div>
       );
     } else {
       setImg(

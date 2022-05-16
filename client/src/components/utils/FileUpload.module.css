@@ -1,6 +1,6 @@
 .overlay {
   position: absolute;
-  width: 366px;
+  width: 100%;
   border-radius: 2px;
   height: 250px;
   background: rgb(0 0 0 / 37%);
@@ -47,7 +47,7 @@
 
 .hoverContainer {
   position: absolute;
-  width: 350px;
+  width: 320px;
   height: 250px;
   display: flex;
   align-items: center;
@@ -64,7 +64,7 @@
 }
 
 .imgDragZone {
-  width: 350px;
+  width: 320px;
   height: 250px;
   display: flex;
   flex-direction: column;
@@ -80,8 +80,8 @@
 }
 
 .firstDragZone {
-  width: 350px;
-  height: 250px;
+  width: 320px;
+  height: 240px;
   border: 1px solid lightgray;
   display: flex;
   border-radius: 2px;
@@ -92,7 +92,7 @@
 }
 
 .btns {
-  width: 350px;
+  width: 320px;
   display: flex;
   height: 53px;
 }
