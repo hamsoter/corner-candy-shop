@@ -116,7 +116,8 @@ function UserCardBlock({
           <a href={`/product/${item._id}`} className={styles.titleBox}>
             <img
               className={styles.thumbnail}
-              src={`http://localhost:5000/${item.thumbnail}`}
+              // src={`http://localhost:5000/${item.thumbnail}`}
+              src={`https://corner-dream-atelier.herokuapp.com/${item.thumbnail}`}
             ></img>
             <span>{item.title}</span>
           </a>

@@ -9,7 +9,10 @@ function ProductImage({ imgSrc }) {
       setImg(
         <div
           className={styles.thumbnail}
-          style={{ backgroundImage: `url("http://localhost:5000/${imgSrc}")` }}
+          // style={{ backgroundImage: `url("http://localhost:5000/${imgSrc}")` }}
+          style={{
+            backgroundImage: `url("https://corner-dream-atelier.herokuapp.com/${imgSrc}")`,
+          }}
         ></div>
       );
     } else {

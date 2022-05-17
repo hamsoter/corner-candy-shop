@@ -19,7 +19,8 @@ function ProductCard({ thumbSrc, price, title }) {
             <div
               className={styles.thumbnail}
               style={{
-                backgroundImage: `url(http://localhost:5000/${src})`,
+                // backgroundImage: `url(http://localhost:5000/${src})`,
+                backgroundImage: `https://corner-dream-atelier.herokuapp.com/${src}`,
               }}
             ></div>
           ) : (

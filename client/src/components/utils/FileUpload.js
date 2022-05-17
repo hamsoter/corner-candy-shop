@@ -103,7 +103,8 @@ function FileUpload({ refreshFunction }) {
               <img
                 className={styles.thumbnailImg}
                 style={{}}
-                src={`http://localhost:5000/${imageSrc}`}
+                // src={`http://localhost:5000/${imageSrc}`}
+                src={`https://corner-dream-atelier.herokuapp.com/${imageSrc}`}
                 {...getRootProps()}
               ></img>
 
