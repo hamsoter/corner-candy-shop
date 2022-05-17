@@ -148,7 +148,6 @@
 }
 .memo > h2 {
   font-family: "LeeSeoyun";
-  /* font-family: "ParkYongJun"; */
   font-size: 1.5rem;
 }
 .memo > h3 {
@@ -162,5 +161,9 @@
 
   .usagi {
     width: 120px;
+  }
+
+  .memo > h2 {
+    max-width: 190px;
   }
 }

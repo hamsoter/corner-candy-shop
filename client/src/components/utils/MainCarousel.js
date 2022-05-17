@@ -6,14 +6,6 @@ import banner1css from "../utils/banners/Banner1.module.css";
 import banner2css from "../utils/banners/Banner2.module.css";
 
 function MainCarousel() {
-  const contentStyle = {
-    height: "400px",
-    color: "#fff",
-    lineHeight: "400px",
-    textAlign: "center",
-    background: "#364d79",
-  };
-
   const banner1 = (
     <div className={banner1css.item}>
       <div className={banner1css.imgBox}>

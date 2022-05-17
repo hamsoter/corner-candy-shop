@@ -15,7 +15,7 @@ function DetailProductPage({ match }) {
     size: 0,
   });
 
-  const { Paragraph, Text } = Typography;
+  const { Paragraph } = Typography;
 
   const [ellipsis, setEllipsis] = React.useState(true);
 

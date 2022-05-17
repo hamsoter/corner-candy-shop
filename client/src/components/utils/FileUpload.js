@@ -5,7 +5,7 @@ import styles from "./FileUpload.module.css";
 
 import btnStyles from "../utils/buttons.module.css";
 
-import Dropzone, { useDropzone } from "react-dropzone";
+import { useDropzone } from "react-dropzone";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 function FileUpload({ refreshFunction }) {
@@ -29,8 +29,6 @@ function FileUpload({ refreshFunction }) {
           자세한 이미지는 꿈에서 보여주세요!
         </span>
       ),
-      onOk() {},
-      onCancel() {},
     });
 
   const onDrop = useCallback((acceptedFiles, fileRejections) => {

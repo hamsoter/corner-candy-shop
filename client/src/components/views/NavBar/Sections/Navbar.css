@@ -143,3 +143,8 @@
 .ant-menu-item > a:hover {
   color: #363062;
 }
+
+.ant-menu-item:active,
+.ant-menu-submenu-title:active {
+  background-color: #e6e5eba1;
+}

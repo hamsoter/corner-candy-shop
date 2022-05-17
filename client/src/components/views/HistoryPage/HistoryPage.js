@@ -1,10 +1,6 @@
-import {
-  CheckCircleOutlined,
-  ExclamationCircleOutlined,
-} from "@ant-design/icons";
-import { Table, Space, Modal } from "antd";
-import Axios from "axios";
-import React, { useEffect, useState } from "react";
+import { CheckCircleOutlined } from "@ant-design/icons";
+import { Table, Modal } from "antd";
+import React, { useEffect } from "react";
 import btnStyles from "../../utils/buttons.module.css";
 
 function HistoryPage({ user, location }) {
@@ -24,6 +20,18 @@ function HistoryPage({ user, location }) {
           고객님의 소중한 꿈이 오늘 수면 중에 배송될 예정입니다.
           <br></br>
           원하시는 꿈과 달콤한 잠 주무시길 바랍니다.
+          <br></br>
+          <br></br>
+          <span
+            style={{
+              color: "white",
+              padding: "0.2rem",
+            }}
+          >
+            (~‾▿‾)~{" "}
+            <span style={{ color: "#E8C07D" }}>✧･ﾟ: *✧･ﾟ:* *:･ﾟ✧*:･ﾟ✧ﾟ:･✧</span>
+            <span> 메롱입니다</span>
+          </span>
         </span>
       ),
       onOk() {},

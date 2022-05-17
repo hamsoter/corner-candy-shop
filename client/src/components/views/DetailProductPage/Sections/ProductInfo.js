@@ -1,4 +1,4 @@
-import { Button, Col, Modal, Row, Typography } from "antd";
+import { Button, Col, Modal, Row } from "antd";
 import React from "react";
 import { withRouter } from "react-router-dom";
 

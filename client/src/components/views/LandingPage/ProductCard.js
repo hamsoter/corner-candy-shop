@@ -1,4 +1,3 @@
-import { SmileOutlined } from "@ant-design/icons";
 import { Card, Col } from "antd";
 import Meta from "antd/lib/card/Meta";
 import React from "react";

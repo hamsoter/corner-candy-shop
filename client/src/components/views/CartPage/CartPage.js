@@ -1,5 +1,5 @@
 import { ShoppingOutlined } from "@ant-design/icons";
-import { Divider, Result } from "antd";
+import { Divider } from "antd";
 import React, { useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
@@ -91,14 +91,14 @@ function CartPage({ user, history }) {
 
     const filterUnselected = cartItems.filter((cartItem) => {
       const isSelected = selectItems.find((selectItem) => {
-        return selectItem._id == cartItem.id;
+        return selectItem._id === cartItem.id;
       });
       return !isSelected;
     });
 
     const filterUnselectedCartDetail = cartDetails.filter((cartItem) => {
       const isSelected = selectItems.find((selectItem) => {
-        return selectItem._id == cartItem._id;
+        return selectItem._id === cartItem._id;
       });
       return !isSelected;
     });

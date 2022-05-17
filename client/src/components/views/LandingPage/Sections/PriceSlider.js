@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Slider, Row, Col, Collapse } from "antd";
+import { Slider, Row, Col } from "antd";
 
 import styles from "./col.module.css";
 

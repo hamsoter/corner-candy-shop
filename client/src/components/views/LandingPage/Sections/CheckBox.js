@@ -1,10 +1,8 @@
-import { Checkbox, Col, Collapse, Row } from "antd";
+import { Col, Row } from "antd";
 import CheckableTag from "antd/lib/tag/CheckableTag";
 import React, { useState } from "react";
 
 import styles from "./col.module.css";
-
-const { Panel } = Collapse;
 
 function CheckBox({ list, handleFilters }) {
   // 눌려져 있는 아이템의 id를 담음
