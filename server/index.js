@@ -53,3 +53,9 @@ const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Server Listening on ${port}`);
 });
+
+app.get("*", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+
+  res.sendFile(path.join(__dirname, "/public/index.html"));
+});

@@ -43,10 +43,12 @@ function FileUpload({ refreshFunction }) {
       formData.append("file", acceptedFiles[0]);
 
       Axios.post("/api/product/image", formData, config).then((res) => {
+        console.log(res);
         if (res.data.success) {
           setImageSrc(res.data.filePath);
           refreshFunction(res.data.filePath);
         } else {
+          console.log(res);
           alert("파일을 올리는데 실패했습니다.");
         }
       });
@@ -104,7 +106,7 @@ function FileUpload({ refreshFunction }) {
                 className={styles.thumbnailImg}
                 style={{}}
                 // src={`http://localhost:5000/${imageSrc}`}
-                src={`https://corner-dream-atelier.herokuapp.com/${imageSrc}`}
+                // src={`https://corner-dream-atelier.herokuapp.com/${imageSrc}`}
                 {...getRootProps()}
               ></img>
 

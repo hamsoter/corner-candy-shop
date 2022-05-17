@@ -10,7 +10,7 @@ const { Product } = require("../models/Product");
 const storage = multer.diskStorage({
   // 파일 저장 위치
   destination: function (req, file, cb) {
-    cb(null, "uploads");
+    cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
     cb(null, `${Date.now()}_${file.originalname}`);
