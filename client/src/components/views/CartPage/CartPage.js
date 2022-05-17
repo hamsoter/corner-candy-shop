@@ -65,10 +65,12 @@ function CartPage({ user, history }) {
       if (res.payload.success) {
         // total 초기화
         priceCalculate();
-        // setShowSuccess(true);
 
         setShowPay(false);
-        history.push("/history");
+        history.push({
+          pathname: "/history",
+          state: { success: true },
+        });
       }
       return;
     });
