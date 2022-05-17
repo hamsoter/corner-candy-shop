@@ -1,3 +1,4 @@
+import { SmileOutlined } from "@ant-design/icons";
 import { Card, Col } from "antd";
 import Meta from "antd/lib/card/Meta";
 import React from "react";
@@ -23,7 +24,7 @@ function ProductCard({ thumbSrc, price, title }) {
               }}
             ></div>
           ) : (
-            <div className={styles.noThumbnail}> </div>
+            <div className={styles.noThumbnail}></div>
           )
         }
         bodyStyle={{

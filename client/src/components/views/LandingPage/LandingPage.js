@@ -228,8 +228,6 @@ function LandingPage(props) {
           removeCookie={removeCookies}
         />
       ) : null}
-
-      {/* {hasCookies ? <button onClick={removeCookies}>쿠키지우기</button> : null} */}
     </main>
   );
 }

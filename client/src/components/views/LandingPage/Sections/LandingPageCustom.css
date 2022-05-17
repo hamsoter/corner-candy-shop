@@ -99,7 +99,6 @@
   width: 100%;
   height: 0;
   padding-top: 61.8%;
-  /* background-image: url("https://toastlog.com/img/logos/cssscan.svg") !important; */
   background-size: cover;
   background-position: center center;
 }
@@ -142,4 +141,8 @@
 .ant-checkbox:hover .ant-checkbox-inner,
 .ant-checkbox-input:focus + .ant-checkbox-inner {
   border-color: #b97a95 !important;
+}
+
+.ant-checkbox-checked::after {
+  border-color: #6b374d !important;
 }

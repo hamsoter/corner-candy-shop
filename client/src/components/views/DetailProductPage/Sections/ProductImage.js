@@ -16,7 +16,6 @@ function ProductImage({ imgSrc }) {
     } else {
       setImg(
         <div className={styles.noThumbnail}>
-          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
           <span className={styles.noThumbText}>이미지가 없어요</span>
         </div>
       );
