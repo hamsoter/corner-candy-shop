@@ -34,7 +34,6 @@ function ProductInfo({ product, history }) {
       maskClosable: true,
       content: "확인하러 갈까요?",
       onOk() {
-        dispatch(addToCart(pathId));
         history.push("/user/cart");
       },
       onCancel() {},
@@ -67,6 +66,7 @@ function ProductInfo({ product, history }) {
             if (user.userData && !user.userData.isAuth) {
               history.push("/login");
             } else {
+              dispatch(addToCart(pathId));
               showSuccessModal();
             }
           }}
