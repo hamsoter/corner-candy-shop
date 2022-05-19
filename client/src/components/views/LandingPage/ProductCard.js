@@ -5,6 +5,7 @@ import styles from "./LandingPage.module.css";
 
 function ProductCard({ thumbSrc, price, title }) {
   const src = thumbSrc.replaceAll("\\", "/");
+  console.log(src);
   return (
     <Col lg={6} md={8} xs={12}>
       <Card
@@ -20,7 +21,7 @@ function ProductCard({ thumbSrc, price, title }) {
               className={styles.thumbnail}
               style={{
                 // backgroundImage: `url(http://localhost:5000/${src})`,
-                backgroundImage: `https://corner-dream-atelier.herokuapp.com/${src}`,
+                backgroundImage: `url(https://corner-dream-atelier.s3.ap-northeast-2.amazonaws.com/${src})`,
               }}
             ></div>
           ) : (

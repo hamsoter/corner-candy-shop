@@ -31,6 +31,8 @@ function FileUpload({ refreshFunction }) {
       ),
     });
 
+  console.log(imageSrc);
+
   const onDrop = useCallback((acceptedFiles, fileRejections) => {
     let formData = new FormData();
 
@@ -43,7 +45,6 @@ function FileUpload({ refreshFunction }) {
       formData.append("file", acceptedFiles[0]);
 
       Axios.post("/api/product/image", formData, config).then((res) => {
-        console.log(res);
         if (res.data.success) {
           setImageSrc(res.data.filePath);
           refreshFunction(res.data.filePath);
@@ -106,7 +107,7 @@ function FileUpload({ refreshFunction }) {
                 className={styles.thumbnailImg}
                 style={{}}
                 // src={`http://localhost:5000/${imageSrc}`}
-                // src={`https://corner-dream-atelier.herokuapp.com/${imageSrc}`}
+                src={`https://corner-dream-atelier.s3.ap-northeast-2.amazonaws.com/${imageSrc}`}
                 {...getRootProps()}
               ></img>
 

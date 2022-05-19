@@ -3,6 +3,15 @@ const multer = require("multer");
 const router = express.Router();
 const { Product } = require("../models/Product");
 
+const multerS3 = require("multer-s3");
+const AWS = require("aws-sdk");
+
+AWS.config.update({
+  accessKeyId: process.env.S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+  region: "ap-northeast-2",
+});
+
 //=================================
 //             product
 //=================================
@@ -17,7 +26,16 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage }).single("file");
+const upload = multer({
+  storage: multerS3({
+    s3: new AWS.S3(), // 접근 권한 설정
+    bucket: "corner-dream-atelier",
+    key(req, file, cb) {
+      const fileName = file.originalname.toLowerCase().split(" ").join("-");
+      cb(null, `${Date.now()}_${fileName}`);
+    },
+  }),
+}).single("file");
 
 router.post("/image", (req, res) => {
   // 가져온 이미지를 저장
@@ -29,8 +47,7 @@ router.post("/image", (req, res) => {
 
     return res.json({
       success: true,
-      filePath: res.req.file.path,
-      filename: res.req.filename,
+      filePath: res.req.file.key,
     });
   });
 });

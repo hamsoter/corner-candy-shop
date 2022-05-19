@@ -11,7 +11,7 @@ function ProductImage({ imgSrc }) {
           className={styles.thumbnail}
           // style={{ backgroundImage: `url("http://localhost:5000/${imgSrc}")` }}
           style={{
-            backgroundImage: `url("https://corner-dream-atelier.herokuapp.com/${imgSrc}")`,
+            backgroundImage: `url("https://corner-dream-atelier.s3.ap-northeast-2.amazonaws.com/${imgSrc}")`,
           }}
         ></div>
       );
