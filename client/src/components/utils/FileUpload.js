@@ -14,9 +14,9 @@ function FileUpload({ refreshFunction }) {
 
   const { info } = Modal;
 
-  const showConfirmModal = () =>
+  const showImageErrorModal = () =>
     info({
-      title: "잠깐만요!",
+      title: "（・□・；）잠깐만요!",
       icon: <ExclamationCircleOutlined style={{ color: "#E8C07D" }} />,
       okText: "칫. 네",
       okButtonProps: { className: btnStyles.button },
@@ -30,8 +30,6 @@ function FileUpload({ refreshFunction }) {
         </span>
       ),
     });
-
-  console.log(imageSrc);
 
   const onDrop = useCallback((acceptedFiles, fileRejections) => {
     let formData = new FormData();
@@ -49,12 +47,11 @@ function FileUpload({ refreshFunction }) {
           setImageSrc(res.data.filePath);
           refreshFunction(res.data.filePath);
         } else {
-          console.log(res);
           alert("파일을 올리는데 실패했습니다.");
         }
       });
     } else {
-      showConfirmModal();
+      showImageErrorModal();
     }
     setIsHovering(false);
   }, []);

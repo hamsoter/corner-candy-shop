@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 
-import { Typography, Form, Input, Button, Divider } from "antd";
+import { Typography, Form, Input, Button, Divider, Modal } from "antd";
 import FileUpload from "../../utils/FileUpload";
 import Axios from "axios";
 import SizeSlider from "../../utils/SizeSlider";
+import btnStyles from "../../utils/buttons.module.css";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 const { Title } = Typography;
 const { TextArea } = Input;
+const { success, error, info } = Modal;
 
 const genres = [
   { key: "g1", value: "액션" },
@@ -79,7 +82,7 @@ function UploadProductPage({ user, history }) {
 
   const submitHandler = () => {
     if (!title || !description || price < 1 || !genre || !mood || !size) {
-      return alert("모든 값을 넣어주세요!");
+      return showInputInvalidModal();
     }
 
     const genreIndex = selectedIndex(genres, genre);
@@ -99,13 +102,55 @@ function UploadProductPage({ user, history }) {
 
     Axios.post("/api/product", body).then((res) => {
       if (res.data.success) {
-        alert("성공!");
-        history.push("/");
+        // alert("성공!");
+        showSuccessModal();
       } else {
-        alert("뭔가 문제가 생겼어요! 다시 시도해봅시다.");
+        showErrorModal();
       }
     });
   };
+
+  const showSuccessModal = () =>
+    success({
+      title: "꿈 올리기 성공!",
+      okText: "녜!",
+      okButtonProps: { className: btnStyles.button },
+      maskClosable: true,
+      autoFocusButton: null,
+      okType: "primary",
+      onOk: () => {
+        history.push("/");
+      },
+      content: (
+        <span>
+          작가님의 꿈이 공방에 무사히 등록되었습니다! <br></br>
+          많은 사람들이 이 꿈을 꾸게 된다면 좋겠네요!
+        </span>
+      ),
+    });
+
+  const showErrorModal = () =>
+    error({
+      title: "━Σ(ﾟДﾟ|||)━ 문제 발생!",
+      okText: "녜...",
+      okButtonProps: { className: btnStyles.button },
+      maskClosable: true,
+      autoFocusButton: null,
+      okType: "primary",
+      content: <span>뭔가 문제가 생겼어요! 다시 시도해봅시다.</span>,
+    });
+
+  const showInputInvalidModal = () =>
+    info({
+      title: "（・□・；）잠깐만요!",
+      icon: <ExclamationCircleOutlined style={{ color: "#E8C07D" }} />,
+      okText: "칫. 네",
+      okButtonProps: { className: btnStyles.button },
+      maskClosable: true,
+      autoFocusButton: null,
+      okType: "primary",
+      content: <span>필수 입력란을 채워야지 꿈을 등록할 수 있어요!</span>,
+    });
 
   return (
     <main style={{ padding: "0 1rem" }}>
@@ -124,12 +169,18 @@ function UploadProductPage({ user, history }) {
 
         <Divider style={{ marginBottom: "3rem" }}>자세한 소개</Divider>
         <article style={{ margin: "1rem 0" }}>
-          <label style={{ fontWeight: "bold" }}>꿈의 이름은?</label>
+          <label style={{ fontWeight: "bold" }}>
+            <span style={{ color: "red", marginRight: "0.2rem" }}>*</span>꿈의
+            이름은?
+          </label>
           <Input onChange={titleChangeHandler} value={title} />
         </article>
 
         <article style={{ margin: "1rem 0" }}>
-          <label style={{ fontWeight: "bold" }}>꿈의 장르는?</label>
+          <label style={{ fontWeight: "bold" }}>
+            <span style={{ color: "red", marginRight: "0.2rem" }}>*</span>꿈의
+            장르는?
+          </label>
           <select
             style={{ margin: "0 0.5rem" }}
             onChange={(e) => selectHandler(e, setGenre)}
@@ -145,7 +196,10 @@ function UploadProductPage({ user, history }) {
         </article>
 
         <article style={{ margin: "1rem 0" }}>
-          <label style={{ fontWeight: "bold" }}>담긴 감정은</label>
+          <label style={{ fontWeight: "bold" }}>
+            <span style={{ color: "red", marginRight: "0.2rem" }}>*</span>담긴
+            감정은
+          </label>
           <select
             style={{ margin: "0 0.5rem" }}
             onChange={(e) => selectHandler(e, setMood)}
@@ -161,7 +215,10 @@ function UploadProductPage({ user, history }) {
         </article>
 
         <article style={{ margin: "1rem 0" }}>
-          <label style={{ fontWeight: "bold" }}>감정의 크기는?</label>
+          <label style={{ fontWeight: "bold" }}>
+            <span style={{ color: "red", marginRight: "0.2rem" }}>*</span>감정의
+            크기는?
+          </label>
 
           <SizeSlider setSize={setSize}></SizeSlider>
           {/* <select onChange={(e) => selectHandler(e, setSize)} value={size.key}>
@@ -174,7 +231,10 @@ function UploadProductPage({ user, history }) {
         </article>
 
         <article style={{ margin: "1rem 0" }}>
-          <label style={{ fontWeight: "bold" }}>이야기 소개...</label>
+          <label style={{ fontWeight: "bold" }}>
+            <span style={{ color: "red", marginRight: "0.2rem" }}>*</span>이야기
+            소개...
+          </label>
           <TextArea
             placeholder="어떤 꿈인지 간단히 들려주세요!"
             onChange={descriptionChangeHandler}
@@ -183,12 +243,18 @@ function UploadProductPage({ user, history }) {
         </article>
 
         <article style={{ margin: "1rem 0" }}>
-          <label style={{ fontWeight: "bold" }}>꿈의 가치($)</label>
-          <p>좋은 이야기에는 그만한 가치가 필요해요!</p>
+          <label style={{ fontWeight: "bold" }}>
+            <span style={{ color: "red", marginRight: "0.2rem" }}>*</span>꿈의
+            가치(1~300$)
+          </label>
+          <p>
+            좋은 이야기에는 그만한 가치가 필요해요!<br></br>
+          </p>
           <Input
             type="number"
             onChange={priceChangeHandler}
             min="1"
+            max="300"
             value={price}
           />
         </article>

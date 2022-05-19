@@ -150,8 +150,6 @@ function LandingPage(props) {
     );
   });
 
-  console.log(showPopUp);
-
   return (
     <main className={styles.main}>
       <MainCarousel></MainCarousel>
